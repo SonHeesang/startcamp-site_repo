@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>손희상 | ON & OFF PLAYGROUND</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons for Modern UI Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- SUIT Font CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-us/suit/fonts/static/woff2/SUIT.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#F97316',
+                        brandCyan: '#06B6D4',
+                        deepCharcoal: '#1E1E24',
+                        cyberDark: '#121216'
+                    },
+                    fontFamily: {
+                        sans: ['SUIT', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'page-enter': 'pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E1E24;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F97316;
+        }
+        @keyframes pageEnter {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-cyberDark text-slate-100 font-sans overflow-x-hidden transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] cyber-grid select-none min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-cyberDark/70 border-b border-white/5 py-4 px-6 md:px-12 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-2 font-bold text-xl tracking-wider group">
+                <span class="text-brandOrange transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]" id="logoTextMain">H.SOHN</span>
+                <span class="text-slate-500 font-light">/</span>
+                <span class="text-slate-400 group-hover:text-white transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]" id="logoTextSub">PORTFOLIO</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="index.html" id="nav-home" class="text-slate-400 hover:text-white py-1 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">HOME</a>
+                <a href="about.html" id="nav-about" class="text-slate-400 hover:text-white py-1 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">ON & OFF</a>
+                <a href="strengths.html" id="nav-strengths" class="text-slate-400 hover:text-white py-1 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">STRENGTHS</a>
+                <a href="study.html" id="nav-study" class="text-slate-400 hover:text-white py-1 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">ACADEMIC</a>
+                <a href="contact.html" id="nav-contact" class="text-slate-400 hover:text-white py-1 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">CONTACT</a>
+                <a href="playground.html" id="nav-playground" class="text-slate-400 hover:text-white py-1 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">PLAYGROUND</a>
+            </nav>
+            <div class="flex items-center space-x-3">
+                <span class="text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]" id="headerModeLabel">FOCUS MODE</span>
+                <button onclick="toggleGlobalMode()" id="headerThemeToggle" class="relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden" aria-label="Toggle Global State">
+                    <div id="toggleKnob" class="absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-0">
+                        <i class="ph-bold ph-lightning text-[14px]" id="toggleKnobIcon"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-16">
+        <section id="page-playground" class="py-12 px-6 md:px-12 relative overflow-hidden animate-page-enter">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="playgroundSectionBadge">INTERACTIVE PLAYGROUND</span>
+                    <h2 class="text-3xl md:text-5xl font-black mt-2">ON & OFF LAB</h2>
+                    <p class="text-slate-400 text-sm md:text-base mt-4">
+                        마우스를 휘젓고, 건반을 누르며, 희상의 에너지를 충전해보세요. 브라우저 최신 기술(Web Audio API 및 HTML5 Canvas)로만 빌드된 인터랙티브 실험실 공간입니다.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- LEFT COLUMN: Canvas Particle Sandbox -->
+                    <div class="lg:col-span-7">
+                        
+                        <!-- 1. Interactive Canvas Card -->
+                        <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-6 relative overflow-hidden group h-full flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-brandOrange animate-pulse" id="sandboxDot"></span>
+                                    <span>PARTICLE SANDBOX (움직여 보세요!)</span>
+                                </span>
+                                <button onclick="clearCanvasParticles()" class="text-xs text-slate-500 hover:text-white transition-colors">초기화</button>
+                            </div>
+                            <!-- Canvas Element (Slightly taller to fill the height) -->
+                            <div class="relative w-full h-[480px] bg-zinc-950/80 rounded-2xl border border-white/5 overflow-hidden flex-grow">
+                                <canvas id="sandboxCanvas" class="absolute inset-0 w-full h-full cursor-crosshair"></canvas>
+                                <div class="absolute bottom-4 left-4 text-[10px] text-slate-500 font-mono" id="canvasStatusText">
+                                    ON: 회로 기판 그리드 네트워크 모드
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN: Gamified Battery & Guestbook -->
+                    <div class="lg:col-span-5 space-y-8">
+                        
+                        <!-- 3. Dynamic Battery Gauge Card -->
+                        <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-6 relative overflow-hidden flex flex-col items-center">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6 w-full text-left block">
+                                HEE-SANG ACTIVE ENERGY
+                            </span>
+                            
+                            <!-- Battery Visual Container -->
+                            <div class="relative w-32 h-64 border-4 border-slate-700 rounded-[28px] p-2 flex flex-col-reverse gap-1.5 justify-start overflow-hidden bg-zinc-900">
+                                <!-- Battery Tip -->
+                                <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-10 h-2.5 bg-slate-700 rounded-t-lg"></div>
+                                
+                                <!-- Battery cells -->
+                                <div id="cell1" class="h-10 bg-zinc-800 rounded-lg transition-all duration-500 shadow-lg"></div>
+                                <div id="cell2" class="h-10 bg-zinc-800 rounded-lg transition-all duration-500 shadow-lg"></div>
+                                <div id="cell3" class="h-10 bg-zinc-800 rounded-lg transition-all duration-500 shadow-lg"></div>
+                                <div id="cell4" class="h-10 bg-zinc-800 rounded-lg transition-all duration-500 shadow-lg"></div>
+                                <div id="cell5" class="h-10 bg-zinc-800 rounded-lg transition-all duration-500 shadow-lg"></div>
+                            </div>
+
+                            <!-- Energy Percentage Label -->
+                            <div class="text-center mt-6">
+                                <span class="text-3xl font-black text-brandOrange tracking-widest transition-colors duration-500" id="energyPercentageText">50%</span>
+                                <span class="text-[10px] font-bold block text-slate-500 mt-1" id="batteryStatusDesc">OFF ☕ 작성 시 충전(+10%), ON 🔥 작성 시 소모(-10%)!</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Guestbook Form & Cards Container -->
+                        <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-6 relative overflow-hidden space-y-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">
+                                GUESTBOOK & CHEERING
+                            </span>
+                            
+                            <!-- Form input fields -->
+                            <form id="guestbookForm" onsubmit="handleGuestbookSubmit(event)" class="space-y-3">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <input type="text" id="visitorName" placeholder="작성자 이름" required class="w-full bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-slate-100 placeholder-slate-600 transition-colors">
+                                    <!-- Energy Select Button -->
+                                    <div class="flex p-0.5 bg-zinc-950 border border-white/5 rounded-xl text-xs font-semibold">
+                                        <button type="button" onclick="setFormMode('ON')" id="formModeOn" class="flex-1 py-2 rounded-lg bg-brandOrange text-white transition-all">ON 🔥</button>
+                                        <button type="button" onclick="setFormMode('OFF')" id="formModeOff" class="flex-1 py-2 rounded-lg text-slate-500 transition-all">OFF ☕</button>
+                                    </div>
+                                </div>
+                                <textarea id="visitorMessage" placeholder="응원의 한마디를 입력해주세요!" required rows="2" class="w-full bg-zinc-950/60 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-slate-100 placeholder-slate-600 transition-colors resize-none"></textarea>
+                                <button type="submit" class="w-full py-3 bg-brandOrange hover:bg-brandOrange/80 rounded-xl text-white font-bold text-sm tracking-widest transition-all" id="guestbookSubmitBtn">
+                                    메시지 작성 & 충전하기
+                                </button>
+                            </form>
+
+                            <!-- Live Feedback Container -->
+                            <div class="border-t border-white/5 pt-4 space-y-3 max-h-56 overflow-y-auto" id="guestbookList">
+                                <!-- Dynamic entries go here -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 border-t border-white/5 bg-cyberDark text-center text-xs text-slate-500 relative z-10 transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]">
+        <div class="max-w-7xl mx-auto px-6 space-y-4">
+            <div class="flex justify-center space-x-6">
+                <a href="index.html" class="hover:text-white transition-colors">HOME</a>
+                <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
+                <a href="strengths.html" class="hover:text-white transition-colors">STRENGTHS</a>
+                <a href="study.html" class="hover:text-white transition-colors">ACADEMIC</a>
+                <a href="contact.html" class="hover:text-white transition-colors">CONTACT</a>
+                <a href="playground.html" class="hover:text-white transition-colors">PLAYGROUND</a>
+            </div>
+            <p>© 2026 손희상 (Sohn Hee-sang). All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSystemMode = localStorage.getItem('systemMode') || 'ON';
+        let currentFormMode = 'ON';
+
+        // Particle Sandbox config & system state
+        const canvas = document.getElementById('sandboxCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        // Canvas Setup & Sizing (화면 스케일과 물리 해상도를 완전히 동기화)
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            const rect = container.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.size = currentSystemMode === 'ON' ? Math.random() * 2 + 1 : Math.random() * 5 + 2;
+                this.speedX = currentSystemMode === 'ON' ? (Math.random() - 0.5) * 1.2 : (Math.random() - 0.5) * 0.4;
+                this.speedY = currentSystemMode === 'ON' ? (Math.random() - 0.5) * 1.2 : -Math.random() * 0.8 - 0.2;
+                this.life = 100;
+                this.opacity = 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (currentSystemMode === 'ON') {
+                    this.life -= 0.5;
+                    this.opacity = Math.max(0, this.life / 100);
+                } else {
+                    if (this.y < 0) {
+                        this.y = canvas.height;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                if (currentSystemMode === 'ON') {
+                    ctx.fillStyle = `rgba(249, 115, 22, ${this.opacity})`;
+                } else {
+                    ctx.fillStyle = `rgba(6, 182, 212, 0.4)`;
+                }
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            const count = currentSystemMode === 'ON' ? 40 : 25;
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // Canvas animation frame loop
+        function animateSandbox() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (currentSystemMode === 'ON') {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                        if (dist < 80) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(249, 115, 22, ${0.15 - dist / 800})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                if (currentSystemMode === 'ON' && particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+
+            if (currentSystemMode === 'ON' && particles.length < 30) {
+                particles.push(new Particle());
+            }
+
+            requestAnimationFrame(animateSandbox);
+        }
+
+        function clearCanvasParticles() {
+            initParticles();
+        }
+
+        // Mouse handlers (물리적 스케일 비율 보정 수식 탑재)
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+            if (currentSystemMode === 'ON' && Math.random() < 0.4) {
+                particles.push(new Particle(mouse.x, mouse.y));
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const clickY = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+            const spawnCount = currentSystemMode === 'ON' ? 12 : 8;
+            for (let i = 0; i < spawnCount; i++) {
+                let p = new Particle(clickX, clickY);
+                if (currentSystemMode === 'ON') {
+                    p.speedX = (Math.random() - 0.5) * 4;
+                    p.speedY = (Math.random() - 0.5) * 4;
+                } else {
+                    p.size = Math.random() * 8 + 4;
+                    p.speedX = (Math.random() - 0.5) * 2;
+                    p.speedY = -Math.random() * 2 - 1;
+                }
+                particles.push(p);
+            }
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        let guestbookData = JSON.parse(localStorage.getItem('heeSangGuestbook')) || [];
+        let batteryCharge = 50;
+
+        function calculateBattery() {
+            let charge = 50; // 기본 중간 지점 (50%)
+            
+            // 모든 방명록을 순회하며 OFF는 충전(+10), ON은 소모(-10) 적용
+            guestbookData.forEach(entry => {
+                if (entry.mode === 'OFF') {
+                    charge += 10;
+                } else if (entry.mode === 'ON') {
+                    charge -= 10;
+                }
+            });
+
+            // 0% ~ 100% 사이로 값 가두기(Clamping)
+            batteryCharge = Math.max(0, Math.min(100, charge));
+            updateBatteryUI();
+        }
+
+        function updateBatteryUI() {
+            const percentageText = document.getElementById('energyPercentageText');
+            if (percentageText) {
+                percentageText.innerText = `${batteryCharge}%`;
+                percentageText.className = currentSystemMode === 'ON' 
+                    ? "text-3xl font-black text-brandOrange tracking-widest transition-colors duration-500"
+                    : "text-3xl font-black text-brandCyan tracking-widest transition-colors duration-500";
+            }
+
+            // 배터리 상태에 따른 가변 경고 라벨 설정
+            const statusDesc = document.getElementById('batteryStatusDesc');
+            if (statusDesc) {
+                if (batteryCharge >= 90) {
+                    statusDesc.innerText = "🔋 완충 완료! 최고의 몰입이 가능한 상태입니다.";
+                    statusDesc.className = "text-[10px] font-bold block text-emerald-400 mt-1 animate-pulse";
+                } else if (batteryCharge <= 20) {
+                    statusDesc.innerText = "⚠️ 방전 경고! OFF ☕ 방명록으로 충전이 필요합니다.";
+                    statusDesc.className = "text-[10px] font-bold block text-rose-400 mt-1 animate-pulse-slow";
+                } else {
+                    statusDesc.innerText = "OFF ☕ 작성 시 충전(+10%), ON 🔥 작성 시 소모(-10%)!";
+                    statusDesc.className = "text-[10px] font-bold block text-slate-500 mt-1";
+                }
+            }
+
+            const countToFill = Math.floor(batteryCharge / 20);
+            for (let i = 1; i <= 5; i++) {
+                const cell = document.getElementById(`cell${i}`);
+                if (cell) {
+                    if (i <= countToFill) {
+                        cell.className = currentSystemMode === 'ON' 
+                            ? "h-10 bg-brandOrange rounded-lg transition-all duration-500 shadow-lg shadow-brandOrange/40"
+                            : "h-10 bg-brandCyan rounded-lg transition-all duration-500 shadow-lg shadow-brandCyan/40";
+                    } else {
+                        cell.className = "h-10 bg-zinc-800 rounded-lg transition-all duration-500 shadow-lg";
+                    }
+                }
+            }
+        }
+
+        function setFormMode(mode) {
+            currentFormMode = mode;
+            const btnOn = document.getElementById('formModeOn');
+            const btnOff = document.getElementById('formModeOff');
+            
+            if (mode === 'ON') {
+                if(btnOn) btnOn.className = "flex-1 py-2 rounded-lg bg-brandOrange text-white transition-all";
+                if(btnOff) btnOff.className = "flex-1 py-2 rounded-lg text-slate-500 transition-all";
+            } else {
+                if(btnOn) btnOn.className = "flex-1 py-2 rounded-lg text-slate-500 transition-all";
+                if(btnOff) btnOff.className = "flex-1 py-2 rounded-lg bg-brandCyan text-white transition-all";
+            }
+        }
+
+        function handleGuestbookSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('visitorName');
+            const msgInput = document.getElementById('visitorMessage');
+
+            if (!nameInput.value || !msgInput.value) return;
+
+            const newEntry = {
+                id: Date.now(),
+                name: nameInput.value.trim(),
+                message: msgInput.value.trim(),
+                mode: currentFormMode,
+                date: new Date().toLocaleDateString('ko-KR')
+            };
+
+            guestbookData.unshift(newEntry);
+            localStorage.setItem('heeSangGuestbook', JSON.stringify(guestbookData));
+
+            nameInput.value = '';
+            msgInput.value = '';
+
+            calculateBattery();
+            renderGuestbookList();
+        }
+
+        function renderGuestbookList() {
+            const listContainer = document.getElementById('guestbookList');
+            if (!listContainer) return;
+
+            if (guestbookData.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-600 text-center py-6">아직 작성된 메시지가 없습니다. 첫 충전의 기회를 잡으세요!</p>`;
+                return;
+            }
+
+            listContainer.innerHTML = guestbookData.map(entry => {
+                const borderClass = entry.mode === 'ON' ? 'border-brandOrange/20' : 'border-brandCyan/20';
+                const bgClass = entry.mode === 'ON' ? 'bg-brandOrange/5' : 'bg-brandCyan/5';
+                const badgeColor = entry.mode === 'ON' ? 'text-brandOrange bg-brandOrange/10' : 'text-brandCyan bg-brandCyan/10';
+                
+                return `
+                    <div class="p-4 border ${borderClass} ${bgClass} rounded-2xl space-y-2 transition-all">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-white">${escapeHtml(entry.name)}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded ${badgeColor}">${entry.mode}</span>
+                                <span class="text-[10px] text-slate-600">${entry.date}</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed">${escapeHtml(entry.message)}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function updateNavigationActive() {
+            const activeId = "nav-playground";
+            document.querySelectorAll('nav a').forEach(navLink => {
+                if (navLink.id === activeId) {
+                    navLink.className = currentSystemMode === 'ON' 
+                        ? "text-brandOrange font-bold transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] border-b-2 border-brandOrange py-1" 
+                        : "text-brandCyan font-bold transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] border-b-2 border-brandCyan py-1";
+                } else {
+                    navLink.className = "text-slate-400 hover:text-white transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] py-1";
+                }
+            });
+        }
+
+        function setSystemState(targetState) {
+            currentSystemMode = targetState;
+            localStorage.setItem('systemMode', currentSystemMode);
+
+            const headerToggleBtn = document.getElementById('headerThemeToggle');
+            const toggleKnob = document.getElementById('toggleKnob');
+            const toggleKnobIcon = document.getElementById('toggleKnobIcon');
+            const headerModeLabel = document.getElementById('headerModeLabel');
+            const logoTextMain = document.getElementById('logoTextMain');
+
+            const playgroundSectionBadge = document.getElementById('playgroundSectionBadge');
+            const canvasStatusText = document.getElementById('canvasStatusText');
+            const sandboxDot = document.getElementById('sandboxDot');
+            const guestbookSubmitBtn = document.getElementById('guestbookSubmitBtn');
+
+            if (currentSystemMode === 'ON') {
+                if(headerToggleBtn) headerToggleBtn.className = "relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden";
+                if(toggleKnob) toggleKnob.className = "absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-0";
+                if(toggleKnobIcon) toggleKnobIcon.className = "ph-bold ph-lightning text-[14px]";
+                if(headerModeLabel) {
+                    headerModeLabel.innerText = "FOCUS MODE";
+                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]";
+                }
+                if(logoTextMain) logoTextMain.className = "text-brandOrange transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]";
+
+                if(playgroundSectionBadge) playgroundSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
+                if(canvasStatusText) canvasStatusText.innerText = "ON: 주황색 배선 형태 그리드 네트워크 파티클 모드";
+                if(sandboxDot) sandboxDot.className = "w-2.5 h-2.5 rounded-full bg-brandOrange animate-pulse";
+                if(guestbookSubmitBtn) guestbookSubmitBtn.className = "w-full py-3 bg-brandOrange hover:bg-brandOrange/80 rounded-xl text-white font-bold text-sm tracking-widest transition-all";
+
+            } else {
+                if(headerToggleBtn) headerToggleBtn.className = "relative w-16 h-8 bg-brandCyan/20 rounded-full p-1 border border-brandCyan/40 cursor-pointer transition-all duration-500 overflow-hidden";
+                if(toggleKnob) toggleKnob.className = "absolute top-1 left-1 w-6 h-6 rounded-full bg-brandCyan shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-8";
+                if(toggleKnobIcon) toggleKnobIcon.className = "ph-bold ph-moon text-[14px]";
+                if(headerModeLabel) {
+                    headerModeLabel.innerText = "OFF ROUTINE";
+                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandCyan uppercase transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]";
+                }
+                if(logoTextMain) logoTextMain.className = "text-brandCyan transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]";
+
+                if(playgroundSectionBadge) playgroundSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
+                if(canvasStatusText) canvasStatusText.innerText = "OFF: 시안색 유기성 버블 리프팅 상승 파티클 모드";
+                if(sandboxDot) sandboxDot.className = "w-2.5 h-2.5 rounded-full bg-brandCyan animate-pulse";
+                if(guestbookSubmitBtn) guestbookSubmitBtn.className = "w-full py-3 bg-brandCyan hover:bg-brandCyan/80 rounded-xl text-white font-bold text-sm tracking-widest transition-all";
+            }
+            
+            updateNavigationActive();
+            initParticles();
+            updateBatteryUI();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        function toggleGlobalMode() {
+            if (currentSystemMode === 'ON') {
+                setSystemState('OFF');
+            } else {
+                setSystemState('ON');
+            }
+        }
+
+        window.onload = function() {
+            resizeCanvas();
+            setSystemState(currentSystemMode);
+            animateSandbox();
+            calculateBattery();
+            renderGuestbookList();
+        }
+    </script>
+</body>
+</html>
+```
+eof
+
+### 🟢 변경 사항 요약
+1. **악기 레이아웃 제거**: 복잡했던 건반형 오디오 패드 섹션을 HTML에서 완전히 제거했습니다.
+2. **비주얼 밸런스 확장**: 왼쪽 파티클 영역을 세로 `480px` 및 `flex-grow` 스타일로 높여, 우측의 배터리 + 방명록 공간과 양쪽 수직 균형이 완벽하게 대칭을 이루도록 개선했습니다.
+3. **코드 최적화**: 웹 오디오 구동에 쓰이던 `AudioContext` 및 주파수 생성 이벤트를 제거하여 메모리 효율을 더욱 향상시켰습니다.
+
+오른쪽의 **`Preview`**를 이용해 한결 더 깔끔해지고 넓어진 파티클 드로잉 공간을 테스트해 보세요!
