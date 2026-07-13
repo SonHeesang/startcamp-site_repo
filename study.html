@@ -11,7 +11,6 @@
     <!-- SUIT Font CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-us/suit/fonts/static/woff2/SUIT.css">
     
-    <!-- Tailwind Custom Configuration -->
     <script>
         tailwind.config = {
             theme: {
@@ -37,7 +36,6 @@
     </script>
 
     <style>
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -52,7 +50,6 @@
             background: #F97316;
         }
 
-        /* Custom Keyframe Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-12px) rotate(1deg); }
@@ -78,7 +75,6 @@
             animation: wave 1.2s ease-in-out infinite;
         }
 
-        /* Smooth state transitions for background & text colors */
         .theme-transition {
             transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
                         border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
@@ -87,14 +83,12 @@
                         transform 0.3s ease;
         }
 
-        /* Ambient Cyber Grid Overlay */
         .cyber-grid {
             background-size: 40px 40px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
         }
 
-        /* Custom glow text utility */
         .glow-orange {
             text-shadow: 0 0 15px rgba(249, 115, 22, 0.6);
         }
@@ -108,28 +102,27 @@
     <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-cyberDark/70 border-b border-white/5 py-4 px-6 md:px-12 transition-all">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <!-- Brand Logo -->
-            <a href="#/home" class="flex items-center space-x-2 font-bold text-xl tracking-wider group">
+            <a href="index.html" class="flex items-center space-x-2 font-bold text-xl tracking-wider group">
                 <span class="text-brandOrange theme-transition logo-on" id="logoTextMain">H.SOHN</span>
                 <span class="text-slate-500 font-light">/</span>
                 <span class="text-slate-400 group-hover:text-white theme-transition" id="logoTextSub">PORTFOLIO</span>
             </a>
 
-            <!-- Navigation Links (Connecting Simulated MPA Pages) -->
+            <!-- Navigation Links -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-                <a href="#/home" id="nav-home" class="hover:text-white transition-all py-1">HOME</a>
-                <a href="#/about" id="nav-about" class="hover:text-white transition-all py-1">ON & OFF</a>
-                <a href="#/strengths" id="nav-strengths" class="hover:text-white transition-all py-1">STRENGTHS</a>
-                <a href="#/study" id="nav-study" class="hover:text-white transition-all py-1">ACADEMIC</a>
-                <a href="#/contact" id="nav-contact" class="hover:text-white transition-all py-1">CONTACT</a>
+                <a href="index.html" id="nav-index" class="nav-link text-slate-400 hover:text-white transition-all py-1">HOME</a>
+<a href="about.html" id="nav-about" class="nav-link text-slate-400 hover:text-white transition-all py-1">ON & OFF</a>
+<a href="strengths.html" id="nav-strengths" class="nav-link text-slate-400 hover:text-white transition-all py-1">STRENGTHS</a>
+<a href="study.html" id="nav-study" class="nav-link font-bold py-1 text-brandOrange border-b-2 border-brandOrange">ACADEMIC</a>
+<a href="contact.html" id="nav-contact" class="nav-link text-slate-400 hover:text-white transition-all py-1">CONTACT</a>
+
             </nav>
 
             <!-- Dynamic State Switcher Component -->
             <div class="flex items-center space-x-3">
                 <span class="text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all" id="headerModeLabel">FOCUS MODE</span>
                 
-                <!-- The Main Toggle Button -->
                 <button onclick="toggleGlobalMode()" id="headerThemeToggle" class="relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden" aria-label="Toggle Global State">
-                    <!-- Slider knob -->
                     <div id="toggleKnob" class="absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-0">
                         <i class="ph-bold ph-lightning text-[14px]" id="toggleKnobIcon"></i>
                     </div>
@@ -137,218 +130,10 @@
             </div>
         </div>
     </header>
-
+    
     <main class="flex-grow pt-24">
-
-        <!-- ================= PAGE 01: HOME ================= -->
-        <section id="page-home" class="relative min-h-[80vh] flex flex-col justify-center items-center px-6 py-16 overflow-hidden hidden animate-page-enter">
-            <!-- Floating Ambient Gradients -->
-            <div id="ambientOrange" class="absolute top-1/4 left-1/4 w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-brandOrange/10 rounded-full blur-[120px] transition-opacity duration-1000 pointer-events-none"></div>
-            <div id="ambientCyan" class="absolute bottom-1/4 right-1/4 w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-brandCyan/0 rounded-full blur-[120px] transition-opacity duration-1000 pointer-events-none"></div>
-
-            <div class="relative z-10 max-w-5xl text-center space-y-8 my-auto">
-                <!-- Mode badge indicator -->
-                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                    <span class="w-2.5 h-2.5 rounded-full bg-brandOrange animate-pulse" id="statusPulseDot"></span>
-                    <span class="text-xs font-semibold tracking-wider uppercase text-slate-300" id="statusText">CURRENT STATE: 100% FOCUS</span>
-                </div>
-
-                <!-- Main Catchphrase with Glowing Effects -->
-                <h1 class="text-4xl md:text-7xl font-black tracking-tight leading-tight md:leading-none text-white transition-all duration-700">
-                    100%의 <span id="glowTextFocus" class="text-brandOrange glow-orange theme-transition">집중</span>과<br class="block sm:hidden"> 
-                    확실한 <span id="glowTextRecovery" class="text-white/40 theme-transition">OFF</span>
-                </h1>
-
-                <p class="text-base md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                    효율을 극대화하는 몰입형 인재, <strong class="text-white transition-all" id="heroNameText">손희상</strong>입니다.<br>
-                    회로를 분석하는 집요한 기획력과 꾸준한 자기관리 루틴으로 성장을 이끕니다.
-                </p>
-
-                <!-- Dynamic Call-to-Action Controls inside Hero -->
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                    <a href="#/study" id="heroPrimaryBtn" class="w-full sm:w-auto px-8 py-4 bg-brandOrange hover:bg-brandOrange/80 text-white font-bold rounded-xl shadow-lg shadow-brandOrange/20 transition-all transform hover:-translate-y-1 text-center">
-                        전공 및 탐구 분야 보기
-                    </a>
-                    <a href="#/about" id="heroSecondaryBtn" class="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 font-bold rounded-xl transition-all text-center">
-                        ON/OFF 루틴 확인
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= PAGE 02: ABOUT (ON & OFF) ================= -->
-        <section id="page-about" class="py-16 px-6 md:px-12 relative overflow-hidden hidden animate-page-enter">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="aboutSectionBadge">STEP 01. LIFE & RECOVERY VALUE</span>
-                    <h2 class="text-3xl md:text-5xl font-black mt-2">HI-DYNAMIC ON & OFF</h2>
-                    <p class="text-slate-400 text-sm md:text-base mt-4">
-                        상단의 글로벌 스위치나 아래 컨트롤러를 조작해 보세요. 손희상의 치열한 집중 시간(ON)과 다음 도약을 위한 휴식 시간(OFF)의 무드 변화가 일어납니다.
-                    </p>
-                </div>
-
-                <!-- Interactive Mood Simulator Panel -->
-                <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-6 md:p-12 backdrop-blur-md relative overflow-hidden">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                        
-                        <!-- Left Side: Interactive Graphic Representing Current Mode -->
-                        <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-6">
-                            <div class="relative w-64 h-64 md:w-80 md:h-80 bg-zinc-900/60 rounded-full border border-white/10 flex items-center justify-center overflow-hidden group">
-                                
-                                <div id="graphicBgGlow" class="absolute inset-0 bg-brandOrange/5 rounded-full transition-all duration-700"></div>
-
-                                <!-- ON Graphic (Circuit & Target Elements) -->
-                                <svg id="svgGraphicOn" class="w-48 h-48 text-brandOrange transition-all duration-700 opacity-100 scale-100 absolute" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                    <circle cx="12" cy="12" r="1.5" class="fill-current animate-ping" />
-                                    <circle cx="12" cy="12" r="8" stroke-dasharray="4 4" class="origin-center animate-[spin_20s_linear_infinite]" />
-                                    <circle cx="12" cy="12" r="5" stroke-dasharray="2 2" class="origin-center animate-[spin_10s_linear_infinite]" />
-                                </svg>
-
-                                <!-- OFF Graphic (Resting / Wave Elements) -->
-                                <svg id="svgGraphicOff" class="w-48 h-48 text-brandCyan transition-all duration-700 opacity-0 scale-75 absolute pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                                    <path d="M4 14.5c2 0 3-1 5-1s3 1 5 1 3-1 5-1" stroke-linecap="round" class="origin-center animate-pulse" />
-                                    <path d="M4 17.5c2 0 3-1 5-1s3 1 5 1 3-1 5-1" stroke-linecap="round" class="origin-center animate-pulse delay-75" />
-                                </svg>
-
-                                <div class="absolute bottom-6 px-4 py-1.5 bg-zinc-950/80 rounded-full border border-white/15 text-[10px] font-bold tracking-widest uppercase text-slate-300" id="graphicLabel">
-                                    FOCUSING ACTIVE
-                                </div>
-                            </div>
-
-                            <!-- Real-time Balance Gauge Bar -->
-                            <div class="w-full space-y-3 bg-white/5 p-5 rounded-2xl border border-white/5">
-                                <div class="flex justify-between items-center text-xs">
-                                    <span class="font-medium text-brandOrange flex items-center space-x-1" id="gaugeLeftLabel">
-                                        <i class="ph-bold ph-lightning"></i> <span>ON (집중도)</span>
-                                    </span>
-                                    <span class="font-medium text-slate-500 flex items-center space-x-1" id="gaugeRightLabel">
-                                        <span>OFF (휴식도)</span> <i class="ph-bold ph-moon"></i>
-                                    </span>
-                                </div>
-                                <div class="relative w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
-                                    <div id="sliderGauge" class="absolute top-0 left-0 h-full bg-gradient-to-r from-brandOrange to-brandCyan transition-all duration-500" style="width: 100%;"></div>
-                                </div>
-                                <div class="flex justify-between items-center text-[10px] text-slate-400">
-                                    <span id="gaugeOnPercent">100% FOCUS</span>
-                                    <span id="gaugeOffPercent">0% RECOVERY</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right Side: Mood Content Display Box -->
-                        <div class="lg:col-span-7 space-y-8 flex flex-col justify-center">
-                            <div class="flex p-1.5 bg-zinc-950 rounded-xl space-x-2 border border-white/5">
-                                <button onclick="setSystemState('ON')" id="simBtnOn" class="flex-1 py-3 px-4 rounded-lg bg-brandOrange text-white font-bold text-sm transition-all flex items-center justify-center space-x-2">
-                                    <i class="ph-bold ph-lightning-slash"></i>
-                                    <span>집중 모드 (ON)</span>
-                                </button>
-                                <button onclick="setSystemState('OFF')" id="simBtnOff" class="flex-1 py-3 px-4 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 font-bold text-sm transition-all flex items-center justify-center space-x-2">
-                                    <i class="ph-bold ph-bed"></i>
-                                    <span>휴식 모드 (OFF)</span>
-                                </button>
-                            </div>
-
-                            <div class="bg-zinc-900/40 p-8 rounded-2xl border border-white/5 relative min-h-[220px] transition-all">
-                                <!-- ON content card -->
-                                <div id="lifestyleContentOn" class="space-y-4 transition-all duration-500 opacity-100 transform translate-x-0">
-                                    <div class="inline-flex px-3 py-1 bg-brandOrange/10 border border-brandOrange/20 rounded-lg text-xs font-bold text-brandOrange">
-                                        WORK & STUDY FOCUS
-                                    </div>
-                                    <h4 class="text-2xl font-black text-white">목표에 가차없는 100% 몰입</h4>
-                                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
-                                        전자전기공학의 복잡한 회로 모델을 해석하거나 높은 정밀도를 요구하는 수학적 신호처리 이론을 분석할 때, 손희상은 고도의 몰입 단계로 진입합니다. 완벽히 쪼개진 시간 계획 속에서 문제의 원인을 끝까지 추적해내고 최선의 이론적 돌파구를 찾아냅니다.
-                                    </p>
-                                </div>
-
-                                <!-- OFF content card -->
-                                <div id="lifestyleContentOff" class="space-y-4 transition-all duration-500 opacity-0 transform translate-x-12 absolute inset-0 p-8 flex flex-col justify-center hidden">
-                                    <div class="inline-flex px-3 py-1 bg-brandCyan/10 border border-brandCyan/20 rounded-lg text-xs font-bold text-brandCyan">
-                                        REST & RECOVERY
-                                    </div>
-                                    <h4 class="text-2xl font-black text-white">확실한 에너제틱 오프라인 리커버리</h4>
-                                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
-                                        몰입 뒤에는 확실한 오프라인 휴식 루틴을 가동시킵니다. 주 4~5회 헬스장에서 중량을 리프팅하며 신체 근육을 키워내듯, 차분한 음악 감상과 감각적인 숏폼 트렌드 소비를 통해 피로를 회복하고 다음 몰입을 위한 지치지 않는 에너지를 뇌에 급속 충전합니다.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= PAGE 03: STRENGTHS ================= -->
-        <section id="page-strengths" class="py-16 px-6 md:px-12 relative overflow-hidden hidden animate-page-enter">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="strengthSectionBadge">STEP 02. CORE STRENGTHS</span>
-                    <h2 class="text-3xl md:text-5xl font-black mt-2">STRENGTH CARDS</h2>
-                    <p class="text-slate-400 text-sm md:text-base mt-4">
-                        학업과 일상 전반에서 발현되는 확실한 강점 카드입니다. 무엇이든 한 번 몰입하면 끝을 보고야 마는 공학적 성향을 직관적으로 확인하세요.
-                    </p>
-                </div>
-
-                <!-- Strength Cards Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Card 1: 돌파력 -->
-                    <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard1">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors" id="strengthIconBox1">
-                                <i class="ph-bold ph-crosshair text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4 text-white">POINT 01.<br>목표를 향한 집요한 돌파력</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                복잡한 전자 기판과 시스템의 이상 징후를 끝까지 추적하는 집요함을 가지고 있습니다. 회로가 오동작하거나 데이터 신호에 수치적 정합성이 어긋날 때, 근본적 원인을 밝혀내기 위해 수많은 기술 자료와 오실로스코프 파형 데이터를 집요하게 분석하여 마침내 논리적인 돌파구를 도출합니다.
-                            </p>
-                        </div>
-                        <div class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors" id="strengthFoot1">
-                            <span>ELECTRICAL ANALYTICS & PROBLEM SOLVING</span>
-                            <i class="ph-bold ph-arrow-right"></i>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: 리커버리 루틴 -->
-                    <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandCyan/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard2">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 mb-6 transition-colors" id="strengthIconBox2">
-                                <i class="ph-bold ph-barbell text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4 text-white">POINT 02.<br>지속 성장을 만드는 리커버리</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                주 4~5회 헬스장을 정기적으로 찾는 루틴에서 증명되는 완벽한 자기관리 프로세스입니다. 휴식과 수면을 통해 손상된 근섬유가 더 강하게 발달하듯, 철저히 계획된 OFF를 취함으로써 다음 협업과 학업에 폭발적인 추진력을 불어넣습니다.
-                            </p>
-                        </div>
-                        <div class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors" id="strengthFoot2">
-                            <span>FITNESS RECOVERY ROUTINE</span>
-                            <i class="ph-bold ph-arrow-right"></i>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: 트렌드 감각 -->
-                    <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard3">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors" id="strengthIconBox3">
-                                <i class="ph-bold ph-music-notes text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4 text-white">POINT 03.<br>트렌드를 감지하는 안테나</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                휴식 속에서도 대중의 흐름을 본능적으로 수집합니다. 숏폼 비디오 콘텐츠의 빠른 교체 주기와 트렌디한 글로벌 일렉트릭/대중 음악들을 흡수하며, 사람들이 직관적으로 끌리고 소비하게 만드는 구조와 감각적인 템포를 익히고 협업에 적용합니다.
-                            </p>
-                        </div>
-                        <div class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors" id="strengthFoot3">
-                            <span>SHORT-FORM INSIGHTS & MUSIC</span>
-                            <i class="ph-bold ph-arrow-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- ================= PAGE 04: ACADEMIC & FOCUS AREAS ================= -->
-        <section id="page-study" class="py-16 px-6 md:px-12 relative overflow-hidden hidden animate-page-enter">
+        <section class="py-16 px-6 md:px-12 relative overflow-hidden animate-page-enter">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
                     <div>
@@ -361,7 +146,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Academic Focus Card -->
                     <div class="group relative bg-deepCharcoal/40 border border-white/5 rounded-3xl p-8 overflow-hidden hover:border-brandOrange/30 transition-all duration-500 flex flex-col justify-between">
                         <div>
                             <div class="absolute top-0 right-0 w-32 h-32 bg-brandOrange/5 rounded-full blur-3xl group-hover:bg-brandOrange/10 transition-all"></div>
@@ -400,7 +184,6 @@
                         </div>
                     </div>
 
-                    <!-- Technical Interest Focus Card -->
                     <div class="group relative bg-deepCharcoal/40 border border-white/5 rounded-3xl p-8 overflow-hidden hover:border-brandCyan/30 transition-all duration-500 flex flex-col justify-between">
                         <div>
                             <div class="absolute top-0 right-0 w-32 h-32 bg-brandCyan/5 rounded-full blur-3xl group-hover:bg-brandCyan/10 transition-all"></div>
@@ -439,128 +222,31 @@
                 </div>
             </div>
         </section>
-
-        <!-- ================= PAGE 05: CONTACT ================= -->
-        <section id="page-contact" class="py-16 px-6 md:px-12 relative overflow-hidden hidden animate-page-enter">
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brandOrange/5 via-transparent to-transparent pointer-events-none transition-all duration-1000" id="contactBackgroundGlow"></div>
-            
-            <div class="max-w-5xl mx-auto relative z-10 text-center space-y-12">
-                <div class="space-y-4">
-                    <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="ctaSectionBadge">STEP 04. CALL TO ACTION</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-white">함께 몰입하고 지치지 않을<br>동료를 찾으시나요?</h2>
-                    <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-                        학회 스터디, 새로운 엔지니어링 프로젝트, 든든한 학과 연구 메이트 등 가치 있는 제안은 언제나 환영입니다. 확실하게 약속합니다. 지치지 않는 기민하고 분석력 있는 파트너가 되어 드립니다!
-                    </p>
-                </div>
-
-                <!-- Instant Contact Tools Dashboard -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                    
-                    <!-- Email Interactive Copy Tool -->
-                    <button onclick="copyEmailToClipboard()" class="flex items-center space-x-4 bg-deepCharcoal/40 hover:bg-deepCharcoal/80 border border-white/10 rounded-2xl p-6 text-left transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group">
-                        <div class="w-12 h-12 rounded-xl bg-brandOrange/10 group-hover:bg-brandOrange/20 flex items-center justify-center text-brandOrange text-2xl theme-transition" id="contactIconEmail">
-                            <i class="ph-bold ph-envelope"></i>
-                        </div>
-                        <div class="flex-1">
-                            <span class="text-xs text-slate-500 uppercase tracking-widest font-semibold block">SEND AN EMAIL</span>
-                            <span class="text-sm md:text-base font-bold text-white break-all">thsgmltkd20@gmail.com</span>
-                        </div>
-                        <span id="copyFeedback" class="text-xs font-bold text-brandOrange bg-brandOrange/10 px-2 py-1.5 rounded transition-all">복사하기</span>
-                    </button>
-
-                    <!-- GitHub Direct Link Card -->
-                    <a href="https://github.com" target="_blank" class="flex items-center space-x-4 bg-deepCharcoal/40 hover:bg-deepCharcoal/80 border border-white/10 rounded-2xl p-6 text-left transition-all duration-300 transform hover:-translate-y-1 group">
-                        <div class="w-12 h-12 rounded-xl bg-brandCyan/10 group-hover:bg-brandCyan/20 flex items-center justify-center text-brandCyan text-2xl theme-transition" id="contactIconGit">
-                            <i class="ph-bold ph-github-logo"></i>
-                        </div>
-                        <div class="flex-1">
-                            <span class="text-xs text-slate-500 uppercase tracking-widest font-semibold block">GITHUB PROFILE</span>
-                            <span class="text-sm md:text-base font-bold text-white">github.com/shg-dev</span>
-                        </div>
-                        <i class="ph-bold ph-arrow-up-right text-slate-400 group-hover:text-brandCyan text-xl transition-colors"></i>
-                    </a>
-
-                </div>
-
-                <!-- Toast Alert Popup Box (Embedded - Prevents native Alerts) -->
-                <div id="toastNotification" class="fixed bottom-8 right-8 z-[100] px-6 py-4 rounded-xl bg-slate-900 border border-brandOrange/30 shadow-2xl flex items-center space-x-3 transform translate-y-24 opacity-0 transition-all duration-500 pointer-events-none">
-                    <i class="ph-bold ph-check-circle text-brandOrange text-2xl" id="toastIcon"></i>
-                    <div class="text-left">
-                        <span class="text-sm font-bold text-white block">이메일 주소 복사 완료!</span>
-                        <span class="text-xs text-slate-400">클립보드에 저장되었습니다. 연락을 기다릴게요!</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
-
+    
     <!-- Simple Sleek Page Footer -->
     <footer class="py-12 border-t border-white/5 bg-cyberDark text-center text-xs text-slate-500 relative z-10">
         <div class="max-w-7xl mx-auto px-6 space-y-4">
             <div class="flex justify-center space-x-6">
-                <a href="#/home" class="hover:text-white transition-colors">HOME</a>
-                <a href="#/about" class="hover:text-white transition-colors">ABOUT</a>
-                <a href="#/strengths" class="hover:text-white transition-colors">STRENGTHS</a>
-                <a href="#/study" class="hover:text-white transition-colors">ACADEMIC</a>
-                <a href="#/contact" class="hover:text-white transition-colors">CONTACT</a>
+                <a href="index.html" class="hover:text-white transition-colors">HOME</a>
+                <a href="about.html" class="hover:text-white transition-colors">ABOUT</a>
+                <a href="strengths.html" class="hover:text-white transition-colors">STRENGTHS</a>
+                <a href="study.html" class="hover:text-white transition-colors">ACADEMIC</a>
+                <a href="contact.html" class="hover:text-white transition-colors">CONTACT</a>
             </div>
             <p>© 2026 손희상 (Sohn Hee-sang). All Rights Reserved.</p>
-            <p class="text-[10px] text-slate-600">이 웹사이트는 해시 라우터 기반의 고성능 멀티 페이지 시뮬레이션(MPA) 구조로 작동합니다.</p>
+            <p class="text-[10px] text-slate-600">이 웹사이트는 물리적으로 분할된 오리지널 다중 페이지(MPA) 구조로 작동합니다.</p>
         </div>
     </footer>
 
     <script>
-        // State variables
-        let currentSystemMode = 'ON';
+        // Use localStorage to maintain ON/OFF state across completely different HTML files!
+        let currentSystemMode = localStorage.getItem('systemMode') || 'ON';
+        const currentPageName = window.location.pathname.split("/").pop() || "index.html";
 
-        // ------------------ ROUTER SYSTEM ------------------
-        const routes = {
-            '#/home': 'page-home',
-            '#/about': 'page-about',
-            '#/strengths': 'page-strengths',
-            '#/study': 'page-study',
-            '#/contact': 'page-contact'
-        };
-
-        function handleRouting() {
-            const hash = window.location.hash || '#/home';
-            
-            // Safety check: redirect to home if route not registered
-            const targetPageId = routes[hash] || 'page-home';
-
-            // Hide all pages, show target page
-            Object.values(routes).forEach(pageId => {
-                const pageEl = document.getElementById(pageId);
-                if (pageEl) {
-                    pageEl.classList.add('hidden');
-                }
-            });
-
-            const activePageEl = document.getElementById(targetPageId);
-            if (activePageEl) {
-                activePageEl.classList.remove('hidden');
-            }
-
-            // Update Navigation Menu Focus Indicator states
-            document.querySelectorAll('nav a').forEach(navLink => {
-                const linkHref = navLink.getAttribute('href');
-                if (linkHref === hash || (hash === '#/home' && linkHref === '#/home')) {
-                    navLink.className = currentSystemMode === 'ON' 
-                        ? "text-brandOrange font-bold transition-all border-b-2 border-brandOrange py-1" 
-                        : "text-brandCyan font-bold transition-all border-b-2 border-brandCyan py-1";
-                } else {
-                    navLink.className = "text-slate-400 hover:text-white transition-all py-1";
-                }
-            });
-
-            // Auto Scroll back to top on navigation transition
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Set the state dynamically with custom layout changes
         function setSystemState(targetState) {
             currentSystemMode = targetState;
+            localStorage.setItem('systemMode', currentSystemMode);
 
             // DOM Elements targeting with safe fallback checks
             const headerToggleBtn = document.getElementById('headerThemeToggle');
@@ -624,6 +310,18 @@
             const sFoot1 = document.getElementById('strengthFoot1');
             const sFoot2 = document.getElementById('strengthFoot2');
             const sFoot3 = document.getElementById('strengthFoot3');
+
+            // Style navigation dynamically
+            const activeNavId = "nav-" + currentPageName.split(".")[0];
+            document.querySelectorAll('.nav-link').forEach(navLink => {
+                if (navLink.id === activeNavId) {
+                    navLink.className = currentSystemMode === 'ON' 
+                        ? "nav-link font-bold transition-all border-b-2 border-brandOrange py-1 text-brandOrange" 
+                        : "nav-link font-bold transition-all border-b-2 border-brandCyan py-1 text-brandCyan";
+                } else {
+                    navLink.className = "nav-link text-slate-400 hover:text-white transition-all py-1";
+                }
+            });
 
             if (currentSystemMode === 'ON') {
                 // Adjust Header & Toggle indicators to ON (Orange Theme)
@@ -768,12 +466,8 @@
                 if(sFoot2) sFoot2.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandCyan font-semibold uppercase tracking-widest transition-colors";
                 if(sFoot3) sFoot3.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors";
             }
-
-            // Re-render Navigation link highlighting to match color states immediately
-            handleRouting();
         }
 
-        // Global Mode toggle function triggered from multiple switchers
         function toggleGlobalMode() {
             if (currentSystemMode === 'ON') {
                 setSystemState('OFF');
@@ -782,11 +476,8 @@
             }
         }
 
-        // Copy to clipboard functional mechanics with Toast Notification (No default Alert)
         function copyEmailToClipboard() {
             const emailText = "thsgmltkd20@gmail.com";
-            
-            // Create a temporary text element to execute copy safely in iframe
             const tempInput = document.createElement("input");
             tempInput.value = emailText;
             document.body.appendChild(tempInput);
@@ -794,13 +485,11 @@
             document.execCommand("copy");
             document.body.removeChild(tempInput);
 
-            // Activate Custom Toast Window
             const toast = document.getElementById('toastNotification');
             if(toast) {
                 toast.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
                 toast.classList.add('opacity-100', 'translate-y-0');
 
-                // Autohide after 3.5 seconds
                 setTimeout(() => {
                     toast.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
                     toast.classList.remove('opacity-100', 'translate-y-0');
@@ -808,14 +497,8 @@
             }
         }
 
-        // Initialization Logic
         window.onload = function() {
-            // Setup default interactive state (ON Focus mode)
-            setSystemState('ON');
-
-            // Handle routing on initial load and future hashchanges
-            window.addEventListener('hashchange', handleRouting);
-            handleRouting();
+            setSystemState(currentSystemMode);
         }
     </script>
 </body>
