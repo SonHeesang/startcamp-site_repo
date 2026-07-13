@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>손희상 | 100% ON & 확실한 OFF</title>
-    <!-- Tailwind CSS CDN -->
+    <title>손희상 | CORE STRENGTHS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Phosphor Icons for Modern UI Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- SUIT Font CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-us/suit/fonts/static/woff2/SUIT.css">
     
     <script>
@@ -21,119 +18,58 @@
                         deepCharcoal: '#1E1E24',
                         cyberDark: '#121216'
                     },
-                    fontFamily: {
-                        sans: ['SUIT', 'sans-serif']
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow-pulse': 'glow 2s infinite alternate',
-                        'page-enter': 'pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-                    }
+                    fontFamily: { sans: ['SUIT', 'sans-serif'] },
+                    animation: { 'page-enter': 'pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards' }
                 }
             }
         }
     </script>
 
     <style>
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1E1E24;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3f3f46;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #F97316;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(1deg); }
-        }
-        @keyframes wave {
-            0%, 100% { transform: scaleY(0.8); }
-            50% { transform: scaleY(1.3); }
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1E1E24; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F97316; }
         @keyframes pageEnter {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        .wave-bar {
-            animation: wave 1.2s ease-in-out infinite;
-        }
-
-        .theme-transition {
-            transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                        border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                        color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                        box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 0.3s ease;
-        }
-
         .cyber-grid {
             background-size: 40px 40px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
         }
-
-        .glow-orange {
-            text-shadow: 0 0 15px rgba(249, 115, 22, 0.6);
-        }
-        .glow-cyan {
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
-        }
     </style>
 </head>
-<body class="bg-cyberDark text-slate-100 font-sans overflow-x-hidden theme-transition cyber-grid select-none selection:bg-brandOrange/30 selection:text-white min-h-screen flex flex-col justify-between">
+<body class="bg-cyberDark text-slate-100 font-sans overflow-x-hidden transition-all duration-[600ms] cyber-grid select-none min-h-screen flex flex-col justify-between">
 
-    <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-cyberDark/70 border-b border-white/5 py-4 px-6 md:px-12 transition-all">
+    <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-cyberDark/70 border-b border-white/5 py-4 px-6 md:px-12 transition-all duration-[600ms]">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Brand Logo -->
             <a href="index.html" class="flex items-center space-x-2 font-bold text-xl tracking-wider group">
-                <span class="text-brandOrange theme-transition logo-on" id="logoTextMain">H.SOHN</span>
+                <span class="text-brandOrange transition-all duration-[600ms]" id="logoTextMain">H.SOHN</span>
                 <span class="text-slate-500 font-light">/</span>
-                <span class="text-slate-400 group-hover:text-white theme-transition" id="logoTextSub">PORTFOLIO</span>
+                <span class="text-slate-400 group-hover:text-white transition-all" id="logoTextSub">PORTFOLIO</span>
             </a>
-
-            <!-- Navigation Links -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-                <a href="index.html" id="nav-index" class="nav-link text-slate-400 hover:text-white transition-all py-1">HOME</a>
-<a href="about.html" id="nav-about" class="nav-link text-slate-400 hover:text-white transition-all py-1">ON & OFF</a>
-<a href="strengths.html" id="nav-strengths" class="nav-link font-bold py-1 text-brandOrange border-b-2 border-brandOrange">STRENGTHS</a>
-<a href="study.html" id="nav-study" class="nav-link text-slate-400 hover:text-white transition-all py-1">ACADEMIC</a>
-<a href="contact.html" id="nav-contact" class="nav-link text-slate-400 hover:text-white transition-all py-1">CONTACT</a>
-
+                <a href="index.html" id="nav-home" class="text-slate-400 hover:text-white py-1 transition-all">HOME</a>
+                <a href="about.html" id="nav-about" class="text-slate-400 hover:text-white py-1 transition-all">ON & OFF</a>
+                <a href="strengths.html" id="nav-strengths" class="text-slate-400 hover:text-white py-1 transition-all">STRENGTHS</a>
+                <a href="study.html" id="nav-study" class="text-slate-400 hover:text-white py-1 transition-all">ACADEMIC</a>
+                <a href="contact.html" id="nav-contact" class="text-slate-400 hover:text-white py-1 transition-all">CONTACT</a>
             </nav>
-
-            <!-- Dynamic State Switcher Component -->
             <div class="flex items-center space-x-3">
                 <span class="text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all" id="headerModeLabel">FOCUS MODE</span>
-                
-                <button onclick="toggleGlobalMode()" id="headerThemeToggle" class="relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden" aria-label="Toggle Global State">
-                    <div id="toggleKnob" class="absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-0">
+                <button onclick="toggleGlobalMode()" id="headerThemeToggle" class="relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden">
+                    <div id="toggleKnob" class="absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500">
                         <i class="ph-bold ph-lightning text-[14px]" id="toggleKnobIcon"></i>
                     </div>
                 </button>
             </div>
         </div>
     </header>
-    
+
     <main class="flex-grow pt-24">
-        <!-- ================= PAGE 03: STRENGTHS ================= -->
-        <section class="py-16 px-6 md:px-12 relative overflow-hidden animate-page-enter">
+        <section id="page-strengths" class="py-16 px-6 md:px-12 relative overflow-hidden animate-page-enter">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center max-w-2xl mx-auto mb-12">
                     <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="strengthSectionBadge">STEP 02. CORE STRENGTHS</span>
@@ -143,8 +79,9 @@
                     </p>
                 </div>
 
+                <!-- Strength Cards Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Card 1: 돌파력 -->
+                    <!-- Card 1 -->
                     <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard1">
                         <div>
                             <div class="w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors" id="strengthIconBox1">
@@ -161,7 +98,7 @@
                         </div>
                     </div>
 
-                    <!-- Card 2: 리커버리 루틴 -->
+                    <!-- Card 2 -->
                     <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandCyan/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard2">
                         <div>
                             <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 mb-6 transition-colors" id="strengthIconBox2">
@@ -178,7 +115,7 @@
                         </div>
                     </div>
 
-                    <!-- Card 3: 트렌드 감각 -->
+                    <!-- Card 3 -->
                     <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard3">
                         <div>
                             <div class="w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors" id="strengthIconBox3">
@@ -198,9 +135,8 @@
             </div>
         </section>
     </main>
-    
-    <!-- Simple Sleek Page Footer -->
-    <footer class="py-12 border-t border-white/5 bg-cyberDark text-center text-xs text-slate-500 relative z-10">
+
+    <footer class="py-12 border-t border-white/5 bg-cyberDark text-center text-xs text-slate-500 relative z-10 transition-all">
         <div class="max-w-7xl mx-auto px-6 space-y-4">
             <div class="flex justify-center space-x-6">
                 <a href="index.html" class="hover:text-white transition-colors">HOME</a>
@@ -210,72 +146,36 @@
                 <a href="contact.html" class="hover:text-white transition-colors">CONTACT</a>
             </div>
             <p>© 2026 손희상 (Sohn Hee-sang). All Rights Reserved.</p>
-            <p class="text-[10px] text-slate-600">이 웹사이트는 물리적으로 분할된 오리지널 다중 페이지(MPA) 구조로 작동합니다.</p>
         </div>
     </footer>
 
     <script>
-        // Use localStorage to maintain ON/OFF state across completely different HTML files!
         let currentSystemMode = localStorage.getItem('systemMode') || 'ON';
-        const currentPageName = window.location.pathname.split("/").pop() || "index.html";
+
+        function updateNavigationActive() {
+            const activeId = "nav-strengths"; // Hardcoded active nav for strengths.html
+            document.querySelectorAll('nav a').forEach(navLink => {
+                if (navLink.id === activeId) {
+                    navLink.className = currentSystemMode === 'ON' 
+                        ? "text-brandOrange font-bold transition-all duration-[600ms] border-b-2 border-brandOrange py-1" 
+                        : "text-brandCyan font-bold transition-all duration-[600ms] border-b-2 border-brandCyan py-1";
+                } else {
+                    navLink.className = "text-slate-400 hover:text-white transition-all duration-[600ms] py-1";
+                }
+            });
+        }
 
         function setSystemState(targetState) {
             currentSystemMode = targetState;
             localStorage.setItem('systemMode', currentSystemMode);
 
-            // DOM Elements targeting with safe fallback checks
             const headerToggleBtn = document.getElementById('headerThemeToggle');
             const toggleKnob = document.getElementById('toggleKnob');
             const toggleKnobIcon = document.getElementById('toggleKnobIcon');
             const headerModeLabel = document.getElementById('headerModeLabel');
-            
-            const statusPulseDot = document.getElementById('statusPulseDot');
-            const statusText = document.getElementById('statusText');
-            
-            const glowTextFocus = document.getElementById('glowTextFocus');
-            const glowTextRecovery = document.getElementById('glowTextRecovery');
-            
-            const heroPrimaryBtn = document.getElementById('heroPrimaryBtn');
-
-            // Sections & Badges
-            const aboutSectionBadge = document.getElementById('aboutSectionBadge');
-            const strengthSectionBadge = document.getElementById('strengthSectionBadge');
-            const projectSectionBadge = document.getElementById('projectSectionBadge');
-            const ctaSectionBadge = document.getElementById('ctaSectionBadge');
-
-            // Interactive simulation SVG Graphics
-            const svgOn = document.getElementById('svgGraphicOn');
-            const svgOff = document.getElementById('svgGraphicOff');
-            const graphicLabel = document.getElementById('graphicLabel');
-            const graphicBgGlow = document.getElementById('graphicBgGlow');
-
-            // Interactive Gauges
-            const sliderGauge = document.getElementById('sliderGauge');
-            const gaugeLeftLabel = document.getElementById('gaugeLeftLabel');
-            const gaugeRightLabel = document.getElementById('gaugeRightLabel');
-            const gaugeOnPercent = document.getElementById('gaugeOnPercent');
-            const gaugeOffPercent = document.getElementById('gaugeOffPercent');
-            
-            const simBtnOn = document.getElementById('simBtnOn');
-            const simBtnOff = document.getElementById('simBtnOff');
-            
-            const lifestyleContentOn = document.getElementById('lifestyleContentOn');
-            const lifestyleContentOff = document.getElementById('lifestyleContentOff');
-
-            const contactBgGlow = document.getElementById('contactBackgroundGlow');
-            const copyFeedback = document.getElementById('copyFeedback');
-            const toastIcon = document.getElementById('toastIcon');
             const logoTextMain = document.getElementById('logoTextMain');
 
-            // Project cards elements
-            const projCardBadge1 = document.getElementById('projCardBadge1');
-            const projCardBadge2 = document.getElementById('projCardBadge2');
-            const projCardTitle1 = document.getElementById('projCardTitle1');
-            const projCardTitle2 = document.getElementById('projCardTitle2');
-            const projCardIcon1 = document.getElementById('projCardIcon1');
-            const projCardIcon2 = document.getElementById('projCardIcon2');
-
-            // Strength cards elements
+            const strengthSectionBadge = document.getElementById('strengthSectionBadge');
             const sCard1 = document.getElementById('strengthCard1');
             const sCard2 = document.getElementById('strengthCard2');
             const sCard3 = document.getElementById('strengthCard3');
@@ -286,78 +186,18 @@
             const sFoot2 = document.getElementById('strengthFoot2');
             const sFoot3 = document.getElementById('strengthFoot3');
 
-            // Style navigation dynamically
-            const activeNavId = "nav-" + currentPageName.split(".")[0];
-            document.querySelectorAll('.nav-link').forEach(navLink => {
-                if (navLink.id === activeNavId) {
-                    navLink.className = currentSystemMode === 'ON' 
-                        ? "nav-link font-bold transition-all border-b-2 border-brandOrange py-1 text-brandOrange" 
-                        : "nav-link font-bold transition-all border-b-2 border-brandCyan py-1 text-brandCyan";
-                } else {
-                    navLink.className = "nav-link text-slate-400 hover:text-white transition-all py-1";
-                }
-            });
-
             if (currentSystemMode === 'ON') {
-                // Adjust Header & Toggle indicators to ON (Orange Theme)
                 if(headerToggleBtn) headerToggleBtn.className = "relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden";
                 if(toggleKnob) toggleKnob.className = "absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-0";
                 if(toggleKnobIcon) toggleKnobIcon.className = "ph-bold ph-lightning text-[14px]";
                 if(headerModeLabel) {
                     headerModeLabel.innerText = "FOCUS MODE";
-                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all";
+                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all duration-[600ms]";
                 }
-                if(logoTextMain) logoTextMain.className = "text-brandOrange theme-transition logo-on";
+                if(logoTextMain) logoTextMain.className = "text-brandOrange transition-all duration-[600ms]";
 
-                // Hero & Status Signal updates
-                if(statusPulseDot) statusPulseDot.className = "w-2.5 h-2.5 rounded-full bg-brandOrange animate-pulse";
-                if(statusText) statusText.innerText = "CURRENT STATE: 100% FOCUS";
-                
-                if(glowTextFocus) glowTextFocus.className = "text-brandOrange glow-orange theme-transition";
-                if(glowTextRecovery) glowTextRecovery.className = "text-white/40 theme-transition";
-                if(heroPrimaryBtn) heroPrimaryBtn.className = "w-full sm:w-auto px-8 py-4 bg-brandOrange hover:bg-brandOrange/80 text-white font-bold rounded-xl shadow-lg shadow-brandOrange/20 transition-all transform hover:-translate-y-1 text-center";
-
-                // Section Badge Colors
-                if(aboutSectionBadge) aboutSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
                 if(strengthSectionBadge) strengthSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
-                if(projectSectionBadge) projectSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
-                if(ctaSectionBadge) ctaSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
 
-                // Graphic Elements Toggling
-                if(svgOn) { svgOn.classList.remove('opacity-0', 'scale-75', 'pointer-events-none'); svgOn.classList.add('opacity-100', 'scale-100'); }
-                if(svgOff) { svgOff.classList.remove('opacity-100', 'scale-100'); svgOff.classList.add('opacity-0', 'scale-75', 'pointer-events-none'); }
-                if(graphicLabel) graphicLabel.innerText = "FOCUSING ACTIVE";
-                if(graphicBgGlow) graphicBgGlow.className = "absolute inset-0 bg-brandOrange/5 rounded-full transition-all duration-700";
-
-                // Gauge Updates
-                if(sliderGauge) sliderGauge.style.width = "100%";
-                if(gaugeLeftLabel) gaugeLeftLabel.className = "font-medium text-brandOrange flex items-center space-x-1 transition-colors";
-                if(gaugeRightLabel) gaugeRightLabel.className = "font-medium text-slate-500 flex items-center space-x-1 transition-colors";
-                if(gaugeOnPercent) gaugeOnPercent.className = "text-brandOrange font-bold transition-colors";
-                if(gaugeOffPercent) gaugeOffPercent.className = "text-slate-500 transition-colors";
-
-                // Buttons Toggling
-                if(simBtnOn) simBtnOn.className = "flex-1 py-3 px-4 rounded-lg bg-brandOrange text-white font-bold text-sm transition-all flex items-center justify-center space-x-2";
-                if(simBtnOff) simBtnOff.className = "flex-1 py-3 px-4 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 font-bold text-sm transition-all flex items-center justify-center space-x-2";
-
-                // Content Panel Sliding
-                if(lifestyleContentOn) lifestyleContentOn.className = "space-y-4 transition-all duration-500 opacity-100 transform translate-x-0";
-                if(lifestyleContentOff) lifestyleContentOff.className = "space-y-4 transition-all duration-500 opacity-0 transform translate-x-12 absolute inset-0 p-8 flex flex-col justify-center hidden";
-
-                // Contact Glow & Button Feedbacks
-                if(contactBgGlow) contactBgGlow.className = "absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brandOrange/5 via-transparent to-transparent pointer-events-none transition-all duration-1000";
-                if(copyFeedback) copyFeedback.className = "text-xs font-bold text-brandOrange bg-brandOrange/10 px-2 py-1.5 rounded transition-colors";
-                if(toastIcon) toastIcon.className = "ph-bold ph-check-circle text-brandOrange text-2xl";
-
-                // Update Project Cards to reflect Orange
-                if(projCardBadge1) projCardBadge1.className = "px-3 py-1 rounded-full text-xs font-semibold bg-brandOrange/10 text-brandOrange border border-brandOrange/20 transition-all";
-                if(projCardBadge2) projCardBadge2.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-slate-400 border border-white/5 transition-all";
-                if(projCardTitle1) projCardTitle1.className = "text-2xl font-bold mb-3 text-white group-hover:text-brandOrange transition-colors";
-                if(projCardTitle2) projCardTitle2.className = "text-2xl font-bold mb-3 text-white group-hover:text-white transition-colors";
-                if(projCardIcon1) projCardIcon1.className = "flex space-x-2 text-slate-500 group-hover:text-brandOrange transition-colors";
-                if(projCardIcon2) projCardIcon2.className = "flex space-x-2 text-slate-500 group-hover:text-white transition-colors";
-
-                // Update Strength Cards
                 if(sCard1) sCard1.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
                 if(sCard2) sCard2.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-white/10 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
                 if(sCard3) sCard3.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
@@ -367,70 +207,18 @@
                 if(sFoot1) sFoot1.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors";
                 if(sFoot2) sFoot2.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors";
                 if(sFoot3) sFoot3.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors";
-
             } else {
-                // Adjust Header & Toggle indicators to OFF (Cyan Theme)
                 if(headerToggleBtn) headerToggleBtn.className = "relative w-16 h-8 bg-brandCyan/20 rounded-full p-1 border border-brandCyan/40 cursor-pointer transition-all duration-500 overflow-hidden";
                 if(toggleKnob) toggleKnob.className = "absolute top-1 left-1 w-6 h-6 rounded-full bg-brandCyan shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-8";
                 if(toggleKnobIcon) toggleKnobIcon.className = "ph-bold ph-moon text-[14px]";
                 if(headerModeLabel) {
                     headerModeLabel.innerText = "OFF ROUTINE";
-                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandCyan uppercase transition-all";
+                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandCyan uppercase transition-all duration-[600ms]";
                 }
-                if(logoTextMain) logoTextMain.className = "text-brandCyan theme-transition logo-on";
+                if(logoTextMain) logoTextMain.className = "text-brandCyan transition-all duration-[600ms]";
 
-                // Hero & Status Signal updates
-                if(statusPulseDot) statusPulseDot.className = "w-2.5 h-2.5 rounded-full bg-brandCyan animate-pulse";
-                if(statusText) statusText.innerText = "CURRENT STATE: ACTIVE RECOVERY";
-
-                if(glowTextFocus) glowTextFocus.className = "text-white/40 theme-transition";
-                if(glowTextRecovery) glowTextRecovery.className = "text-brandCyan glow-cyan theme-transition";
-                if(heroPrimaryBtn) heroPrimaryBtn.className = "w-full sm:w-auto px-8 py-4 bg-brandCyan hover:bg-brandCyan/80 text-white font-bold rounded-xl shadow-lg shadow-brandCyan/20 transition-all transform hover:-translate-y-1 text-center";
-
-                // Section Badge Colors
-                if(aboutSectionBadge) aboutSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
                 if(strengthSectionBadge) strengthSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
-                if(projectSectionBadge) projectSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
-                if(ctaSectionBadge) ctaSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
 
-                // Graphic Elements Toggling
-                if(svgOn) { svgOn.classList.add('opacity-0', 'scale-75', 'pointer-events-none'); svgOn.classList.remove('opacity-100', 'scale-100'); }
-                if(svgOff) { svgOff.classList.add('opacity-100', 'scale-100'); svgOff.classList.remove('opacity-0', 'scale-75', 'pointer-events-none'); }
-                if(graphicLabel) graphicLabel.innerText = "RECOVERY ACTIVE";
-                if(graphicBgGlow) graphicBgGlow.className = "absolute inset-0 bg-brandCyan/5 rounded-full transition-all duration-700";
-
-                // Gauge Updates
-                if(sliderGauge) sliderGauge.style.width = "0%";
-                if(gaugeLeftLabel) gaugeLeftLabel.className = "font-medium text-slate-500 flex items-center space-x-1 transition-colors";
-                if(gaugeRightLabel) gaugeRightLabel.className = "font-medium text-brandCyan flex items-center space-x-1 transition-colors";
-                if(gaugeOnPercent) gaugeOnPercent.className = "text-slate-500 transition-colors";
-                if(gaugeOffPercent) gaugeOffPercent.className = "text-brandCyan font-bold transition-colors";
-
-                // Buttons Toggling
-                if(simBtnOn) simBtnOn.className = "flex-1 py-3 px-4 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 font-bold text-sm transition-all flex items-center justify-center space-x-2";
-                if(simBtnOff) simBtnOff.className = "flex-1 py-3 px-4 rounded-lg bg-brandCyan text-white font-bold text-sm transition-all flex items-center justify-center space-x-2";
-
-                // Content Panel Sliding
-                if(lifestyleContentOn) lifestyleContentOn.className = "space-y-4 transition-all duration-500 opacity-0 transform -translate-x-12 absolute inset-0 p-8 flex flex-col justify-center hidden";
-                if(lifestyleContentOff) {
-                    lifestyleContentOff.className = "space-y-4 transition-all duration-500 opacity-100 transform translate-x-0";
-                    lifestyleContentOff.classList.remove('hidden');
-                }
-
-                // Contact Glow & Button Feedbacks
-                if(contactBgGlow) contactBgGlow.className = "absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brandCyan/5 via-transparent to-transparent pointer-events-none transition-all duration-1000";
-                if(copyFeedback) copyFeedback.className = "text-xs font-bold text-brandCyan bg-brandCyan/10 px-2 py-1 rounded transition-colors";
-                if(toastIcon) toastIcon.className = "ph-bold ph-check-circle text-brandCyan text-2xl";
-
-                // Update Project Cards to reflect Cyan
-                if(projCardBadge1) projCardBadge1.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-slate-400 border border-white/5 transition-all";
-                if(projCardBadge2) projCardBadge2.className = "px-3 py-1 rounded-full text-xs font-semibold bg-brandCyan/10 text-brandCyan border border-brandCyan/20 transition-all";
-                if(projCardTitle1) projCardTitle1.className = "text-2xl font-bold mb-3 text-white group-hover:text-white transition-colors";
-                if(projCardTitle2) projCardTitle2.className = "text-2xl font-bold mb-3 text-white group-hover:text-brandCyan transition-colors";
-                if(projCardIcon1) projCardIcon1.className = "flex space-x-2 text-slate-500 group-hover:text-white transition-colors";
-                if(projCardIcon2) projCardIcon2.className = "flex space-x-2 text-slate-500 group-hover:text-brandCyan transition-colors";
-
-                // Update Strength Cards
                 if(sCard1) sCard1.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-white/10 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
                 if(sCard2) sCard2.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandCyan/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
                 if(sCard3) sCard3.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-white/10 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
@@ -441,6 +229,7 @@
                 if(sFoot2) sFoot2.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandCyan font-semibold uppercase tracking-widest transition-colors";
                 if(sFoot3) sFoot3.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors";
             }
+            updateNavigationActive();
         }
 
         function toggleGlobalMode() {
@@ -448,27 +237,6 @@
                 setSystemState('OFF');
             } else {
                 setSystemState('ON');
-            }
-        }
-
-        function copyEmailToClipboard() {
-            const emailText = "thsgmltkd20@gmail.com";
-            const tempInput = document.createElement("input");
-            tempInput.value = emailText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-
-            const toast = document.getElementById('toastNotification');
-            if(toast) {
-                toast.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
-                toast.classList.add('opacity-100', 'translate-y-0');
-
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
-                    toast.classList.remove('opacity-100', 'translate-y-0');
-                }, 3500);
             }
         }
 
