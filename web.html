@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>손희상 | 100% ON & 확실한 OFF</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons for Modern UI Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- SUIT Font CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-us/suit/fonts/static/woff2/SUIT.css">
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#F97316',
+                        brandCyan: '#06B6D4',
+                        deepCharcoal: '#1E1E24',
+                        cyberDark: '#121216'
+                    },
+                    fontFamily: {
+                        sans: ['SUIT', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow-pulse': 'glow 2s infinite alternate',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E1E24;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F97316;
+        }
+
+        /* Custom Keyframe Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.8); }
+            50% { transform: scaleY(1.3); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .wave-bar {
+            animation: wave 1.2s ease-in-out infinite;
+        }
+
+        /* Smooth state transitions for background & text colors */
+        .theme-transition {
+            transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.3s ease;
+        }
+
+        /* Ambient Cyber Grid Overlay */
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Custom glow text utility */
+        .glow-orange {
+            text-shadow: 0 0 15px rgba(249, 115, 22, 0.6);
+        }
+        .glow-cyan {
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+        }
+
+        /* Scroll Reveal base style */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-cyberDark text-slate-100 font-sans overflow-x-hidden theme-transition cyber-grid select-none selection:bg-brandOrange/30 selection:text-white">
+
+    <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-cyberDark/70 border-b border-white/5 py-4 px-6 md:px-12 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-2 font-bold text-xl tracking-wider group">
+                <span class="text-brandOrange theme-transition logo-on" id="logoTextMain">H.SOHN</span>
+                <span class="text-slate-500 font-light">/</span>
+                <span class="text-slate-400 group-hover:text-white theme-transition" id="logoTextSub">PORTFOLIO</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+                <a href="#hero" class="hover:text-white transition-colors">HOME</a>
+                <a href="#about" class="hover:text-white transition-colors">ABOUT (ON/OFF)</a>
+                <a href="#strengths" class="hover:text-white transition-colors">STRENGTHS</a>
+                <a href="#study-fields" class="hover:text-white transition-colors">STUDY & AREAS</a>
+                <a href="#contact" class="hover:text-white transition-colors">CONTACT</a>
+            </nav>
+
+            <!-- Dynamic State Switcher Component -->
+            <div class="flex items-center space-x-3">
+                <span class="text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all" id="headerModeLabel">FOCUS MODE</span>
+                
+                <!-- The Main Toggle Button -->
+                <button onclick="toggleGlobalMode()" id="headerThemeToggle" class="relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden" aria-label="Toggle Global State">
+                    <!-- Slider knob -->
+                    <div id="toggleKnob" class="absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-0">
+                        <i class="ph-bold ph-lightning text-[14px]" id="toggleKnobIcon"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-24 pb-16 overflow-hidden">
+        <!-- Floating Ambient Gradients -->
+        <div id="ambientOrange" class="absolute top-1/4 left-1/4 w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-brandOrange/10 rounded-full blur-[120px] transition-opacity duration-1000 pointer-events-none"></div>
+        <div id="ambientCyan" class="absolute bottom-1/4 right-1/4 w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-brandCyan/0 rounded-full blur-[120px] transition-opacity duration-1000 pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-5xl text-center space-y-8">
+            <!-- Mode badge indicator -->
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                <span class="w-2.5 h-2.5 rounded-full bg-brandOrange animate-pulse" id="statusPulseDot"></span>
+                <span class="text-xs font-semibold tracking-wider uppercase text-slate-300" id="statusText">CURRENT STATE: 100% FOCUS</span>
+            </div>
+
+            <!-- Main Catchphrase with Glowing Effects -->
+            <h1 class="text-4xl md:text-7xl font-black tracking-tight leading-tight md:leading-none text-white transition-all duration-700">
+                100%의 <span id="glowTextFocus" class="text-brandOrange glow-orange theme-transition">집중</span>과<br class="block sm:hidden"> 
+                확실한 <span id="glowTextRecovery" class="text-white/40 theme-transition">OFF</span>
+            </h1>
+
+            <p class="text-base md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                효율을 극대화하는 몰입형 인재, <strong class="text-white transition-all" id="heroNameText">손희상</strong>입니다.<br>
+                회로를 분석하는 집요한 기획력과 꾸준한 자기관리 루틴으로 성장을 이끕니다.
+            </p>
+
+            <!-- Dynamic Call-to-Action Controls inside Hero -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#study-fields" id="heroPrimaryBtn" class="w-full sm:w-auto px-8 py-4 bg-brandOrange hover:bg-brandOrange/80 text-white font-bold rounded-xl shadow-lg shadow-brandOrange/20 transition-all transform hover:-translate-y-1 text-center">
+                    전공 및 탐구 분야 보기
+                </a>
+                <a href="#about" id="heroSecondaryBtn" class="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 font-bold rounded-xl transition-all text-center">
+                    ON/OFF 루틴 확인
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll down interactive guide -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2 text-slate-500 opacity-60">
+            <span class="text-[10px] tracking-widest uppercase">Scroll to explore</span>
+            <div class="w-5 h-8 border-2 border-slate-600 rounded-full p-1 flex justify-center">
+                <div class="w-1 h-2 bg-brandOrange rounded-full animate-bounce" id="scrollIndicatorDot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 px-6 md:px-12 bg-deepCharcoal/20 border-t border-white/5 relative overflow-hidden reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="aboutSectionBadge">STEP 01. LIFE & RECOVERY VALUE</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-2">HI-DYNAMIC ON & OFF</h2>
+                <p class="text-slate-400 text-sm md:text-base mt-4">
+                    아래 스위치나 상단의 메인 버튼을 조작하여 손희상의 완벽한 집중 시간(ON)과 차분한 리프레시 충전 시간(OFF)의 극명한 무드 반전을 시뮬레이션해 보세요.
+                </p>
+            </div>
+
+            <!-- Interactive Mood Simulator Panel -->
+            <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-6 md:p-12 backdrop-blur-md relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Side: Interactive Graphic Representing Current Mode -->
+                    <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-6">
+                        <div class="relative w-64 h-64 md:w-80 md:h-80 bg-zinc-900/60 rounded-full border border-white/10 flex items-center justify-center overflow-hidden group">
+                            
+                            <!-- Ambient Glow internally -->
+                            <div id="graphicBgGlow" class="absolute inset-0 bg-brandOrange/5 rounded-full transition-all duration-700"></div>
+
+                            <!-- ON Graphic (Circuit & Target Elements) -->
+                            <svg id="svgGraphicOn" class="w-48 h-48 text-brandOrange transition-all duration-700 opacity-100 scale-100 absolute" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <!-- Brain / Circuit Nodes -->
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                                <circle cx="12" cy="12" r="1.5" class="fill-current animate-ping" />
+                                <!-- Geometric focus rings -->
+                                <circle cx="12" cy="12" r="8" stroke-dasharray="4 4" class="origin-center animate-[spin_20s_linear_infinite]" />
+                                <circle cx="12" cy="12" r="5" stroke-dasharray="2 2" class="origin-center animate-[spin_10s_linear_infinite]" />
+                            </svg>
+
+                            <!-- OFF Graphic (Resting / Wave Elements) -->
+                            <svg id="svgGraphicOff" class="w-48 h-48 text-brandCyan transition-all duration-700 opacity-0 scale-75 absolute pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <!-- Wave Paths & Crescent Moon -->
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" class="opacity-0" />
+                                <!-- Peaceful ripple wave lines -->
+                                <path d="M4 14.5c2 0 3-1 5-1s3 1 5 1 3-1 5-1" stroke-linecap="round" class="origin-center animate-pulse" />
+                                <path d="M4 17.5c2 0 3-1 5-1s3 1 5 1 3-1 5-1" stroke-linecap="round" class="origin-center animate-pulse delay-75" />
+                            </svg>
+
+                            <!-- Live Mode Badge inside Graphic -->
+                            <div class="absolute bottom-6 px-4 py-1.5 bg-zinc-950/80 rounded-full border border-white/15 text-[10px] font-bold tracking-widest uppercase text-slate-300" id="graphicLabel">
+                                FOCUSING ACTIVE
+                            </div>
+                        </div>
+
+                        <!-- Real-time Balance Gauge Bar -->
+                        <div class="w-full space-y-3 bg-white/5 p-5 rounded-2xl border border-white/5">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-medium text-brandOrange flex items-center space-x-1" id="gaugeLeftLabel">
+                                    <i class="ph-bold ph-lightning"></i> <span>ON (집중도)</span>
+                                </span>
+                                <span class="font-medium text-slate-500 flex items-center space-x-1" id="gaugeRightLabel">
+                                    <span>OFF (휴식도)</span> <i class="ph-bold ph-moon"></i>
+                                </span>
+                            </div>
+                            <!-- Bar Slider Body -->
+                            <div class="relative w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
+                                <div id="sliderGauge" class="absolute top-0 left-0 h-full bg-gradient-to-r from-brandOrange to-brandCyan transition-all duration-500" style="width: 100%;"></div>
+                            </div>
+                            <div class="flex justify-between items-center text-[10px] text-slate-400">
+                                <span id="gaugeOnPercent">100% FOCUS</span>
+                                <span id="gaugeOffPercent">0% RECOVERY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Mood Content Display Box -->
+                    <div class="lg:col-span-7 space-y-8 flex flex-col justify-center">
+                        <div class="flex p-1.5 bg-zinc-950 rounded-xl space-x-2 border border-white/5">
+                            <button onclick="setSystemState('ON')" id="simBtnOn" class="flex-1 py-3 px-4 rounded-lg bg-brandOrange text-white font-bold text-sm transition-all flex items-center justify-center space-x-2">
+                                <i class="ph-bold ph-lightning-slash"></i>
+                                <span>집중 모드 (ON)</span>
+                            </button>
+                            <button onclick="setSystemState('OFF')" id="simBtnOff" class="flex-1 py-3 px-4 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 font-bold text-sm transition-all flex items-center justify-center space-x-2">
+                                <i class="ph-bold ph-bed"></i>
+                                <span>휴식 모드 (OFF)</span>
+                            </button>
+                        </div>
+
+                        <div class="bg-zinc-900/40 p-8 rounded-2xl border border-white/5 relative min-h-[220px] transition-all">
+                            <!-- ON content card -->
+                            <div id="lifestyleContentOn" class="space-y-4 transition-all duration-500 opacity-100 transform translate-x-0">
+                                <div class="inline-flex px-3 py-1 bg-brandOrange/10 border border-brandOrange/20 rounded-lg text-xs font-bold text-brandOrange">
+                                    WORK & STUDY FOCUS
+                                </div>
+                                <h4 class="text-2xl font-black text-white">목표에 가차없는 100% 몰입</h4>
+                                <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                                    전자전기공학의 복잡한 회로 모델을 해석하거나 높은 정밀도를 요구하는 수학적 신호처리 이론을 분석할 때, 손희상은 고도의 몰입 단계로 진입합니다. 완벽히 쪼개진 시간 계획 속에서 문제의 원인을 끝까지 추적해내고 최선의 이론적 돌파구를 찾아냅니다.
+                                </p>
+                            </div>
+
+                            <!-- OFF content card (hidden by default) -->
+                            <div id="lifestyleContentOff" class="space-y-4 transition-all duration-500 opacity-0 transform translate-x-12 absolute inset-0 p-8 flex flex-col justify-center hidden">
+                                <div class="inline-flex px-3 py-1 bg-brandCyan/10 border border-brandCyan/20 rounded-lg text-xs font-bold text-brandCyan">
+                                    REST & RECOVERY
+                                </div>
+                                <h4 class="text-2xl font-black text-white">확실한 에너제틱 오프라인 리커버리</h4>
+                                <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                                    몰입 뒤에는 확실한 오프라인 휴식 루틴을 가동시킵니다. 주 4~5회 헬스장에서 중량을 리프팅하며 신체 근육을 키워내듯, 차분한 음악 감상과 감각적인 숏폼 트렌드 소비를 통해 피로를 회복하고 다음 몰입을 위한 지치지 않는 에너지를 뇌에 급속 충전합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="strengths" class="py-24 px-6 md:px-12 relative overflow-hidden reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="strengthSectionBadge">STEP 02. CORE STRENGTHS</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-2">STRENGTH CARDS</h2>
+                <p class="text-slate-400 text-sm md:text-base mt-4">
+                    학업과 일상 전반에서 발현되는 확실한 강점 카드입니다. 무엇이든 한 번 몰입하면 끝을 보고야 마는 공학적 성향을 직관적으로 확인하세요.
+                </p>
+            </div>
+
+            <!-- Strength Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: 돌파력 (수정됨: 공학적 문제 해결) -->
+                <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard1">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors" id="strengthIconBox1">
+                            <i class="ph-bold ph-crosshair text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">POINT 01.<br>목표를 향한 집요한 돌파력</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            복잡한 전자 기판과 시스템의 이상 징후를 끝까지 추적하는 집요함을 가지고 있습니다. 회로가 오동작하거나 데이터 신호에 수치적 정합성이 어긋날 때, 근본적 원인을 밝혀내기 위해 수많은 기술 자료와 오실로스코프 파형 데이터를 집요하게 분석하여 마침내 논리적인 돌파구를 도출합니다.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors" id="strengthFoot1">
+                        <span>ELECTRICAL ANALYTICS & PROBLEM SOLVING</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2: 리커버리 루틴 -->
+                <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandCyan/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard2">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 mb-6 transition-colors" id="strengthIconBox2">
+                            <i class="ph-bold ph-barbell text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">POINT 02.<br>지속 성장을 만드는 리커버리</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            주 4~5회 헬스장을 정기적으로 찾는 루틴에서 증명되는 완벽한 자기관리 프로세스입니다. 휴식과 수면을 통해 손상된 근섬유가 더 강하게 발달하듯, 철저히 계획된 OFF를 취함으로써 다음 협업과 학업에 폭발적인 추진력을 불어넣습니다.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors" id="strengthFoot2">
+                        <span>FITNESS RECOVERY ROUTINE</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3: 트렌드 감각 -->
+                <div class="bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between" id="strengthCard3">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors" id="strengthIconBox3">
+                            <i class="ph-bold ph-music-notes text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">POINT 03.<br>트렌드를 감지하는 안테나</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            휴식 속에서도 대중의 흐름을 본능적으로 수집합니다. 숏폼 비디오 콘텐츠의 빠른 교체 주기와 트렌디한 글로벌 일렉트릭/대중 음악들을 흡수하며, 사람들이 직관적으로 끌리고 소비하게 만드는 구조와 감각적인 템포를 익히고 협업에 적용합니다.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors" id="strengthFoot3">
+                        <span>SHORT-FORM INSIGHTS & MUSIC</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="study-fields" class="py-24 px-6 md:px-12 bg-[#17171d] border-y border-white/5 relative reveal">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header for Section -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="projectSectionBadge">STEP 03. ACADEMIC & INTERESTS</span>
+                    <h2 class="text-3xl md:text-5xl font-black mt-2 text-white">CORE EXPANSIONS</h2>
+                </div>
+                <p class="text-slate-400 max-w-md text-sm md:text-base">
+                    전자전기공학 전공을 대하는 집요한 학업 태도와, 기술적 관심 도메인 속에서 발견한 설계 감각을 조명합니다.
+                </p>
+            </div>
+
+            <!-- Responsive Grid of Core Domains -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Academic Focus Card -->
+                <div class="group relative bg-deepCharcoal/40 border border-white/5 rounded-3xl p-8 overflow-hidden hover:border-brandOrange/30 transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brandOrange/5 rounded-full blur-3xl group-hover:bg-brandOrange/10 transition-all"></div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-brandOrange/10 text-brandOrange border border-brandOrange/20 transition-all" id="projCardBadge1">Major Academic</span>
+                            <div class="flex space-x-2 text-slate-500 group-hover:text-brandOrange transition-colors" id="projCardIcon1">
+                                <i class="ph-bold ph-cpu text-2xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-brandOrange transition-colors" id="projCardTitle1">전자전기 회로 모델링 및 신호처리</h3>
+                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                            물리적 하드웨어의 보이지 않는 전류 신호를 수학적 수식과 알고리즘으로 모델링하는 전공 심화 지식을 탐구합니다. 소자 간의 관계적 흐름을 기하학적으로 해석하며, 효율적인 회로 설계와 주파수 필터링 구조를 분석하는 집요한 논리력을 키워가고 있습니다.
+                        </p>
+                    </div>
+
+                    <div>
+                        <!-- Embedded Visual Waveform Graphic -->
+                        <div class="w-full h-32 bg-zinc-950 rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-white/5 relative">
+                            <!-- Simulated Waveform Screen Graphic -->
+                            <div class="absolute inset-0 flex items-center justify-around px-8 opacity-30">
+                                <div class="w-1.5 h-16 bg-brandOrange rounded-full wave-bar" style="animation-delay: 0.1s"></div>
+                                <div class="w-1.5 h-10 bg-brandOrange rounded-full wave-bar" style="animation-delay: 0.3s"></div>
+                                <div class="w-1.5 h-24 bg-brandOrange rounded-full wave-bar" style="animation-delay: 0.5s"></div>
+                                <div class="w-1.5 h-8 bg-brandOrange rounded-full wave-bar" style="animation-delay: 0.2s"></div>
+                                <div class="w-1.5 h-20 bg-brandOrange rounded-full wave-bar" style="animation-delay: 0.4s"></div>
+                            </div>
+                            <span class="text-xs text-slate-500 font-mono tracking-widest z-10 uppercase flex items-center space-x-1.5">
+                                <span class="w-2 h-2 bg-brandOrange rounded-full animate-ping"></span>
+                                <span>PHYSICAL SIGNAL FILTERING ANALYTICS</span>
+                            </span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-xs bg-white/5 text-slate-400">Circuit Engineering</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs bg-white/5 text-slate-400">Signal & Systems</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs bg-white/5 text-slate-400">Logical Problem Solving</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Interest Focus Card (수정됨: 디지털 시스템 및 임베디드 제어 공학) -->
+                <div class="group relative bg-deepCharcoal/40 border border-white/5 rounded-3xl p-8 overflow-hidden hover:border-brandCyan/30 transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brandCyan/5 rounded-full blur-3xl group-hover:bg-brandCyan/10 transition-all"></div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-slate-400 border border-white/5 transition-all" id="projCardBadge2">Applied Study</span>
+                            <div class="flex space-x-2 text-slate-500 group-hover:text-brandCyan transition-colors" id="projCardIcon2">
+                                <i class="ph-bold ph-gear-six text-2xl animate-[spin_8s_linear_infinite]"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-brandCyan transition-colors" id="projCardTitle2">디지털 시스템 및 임베디드 제어</h3>
+                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                            하드웨어와 소프트웨어가 교차하는 최전선인 임베디드 시스템에 흥미를 가지고 공부합니다. 마이크로컨트롤러(MCU)와 다양한 주변 센서 간의 통신 신호를 조율하고, 논리 연산 장치의 타이밍 다이어그램을 설계하며 최적화된 저전력 제어 알고리즘 구조를 수립해 갑니다.
+                        </p>
+                    </div>
+
+                    <div>
+                        <!-- Embedded Visual Cooldown/Grid Graphic -->
+                        <div class="w-full h-32 bg-zinc-950 rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-white/5 relative">
+                            <!-- Simulated Logic Analyzer Layout Graphic -->
+                            <div class="absolute inset-0 flex flex-col justify-center gap-3 px-8 opacity-25">
+                                <div class="h-[2px] w-full bg-brandCyan relative"><div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-brandCyan rounded-full animate-ping"></div></div>
+                                <div class="h-[2px] w-4/5 bg-brandCyan"></div>
+                                <div class="h-[2px] w-11/12 bg-brandCyan"></div>
+                            </div>
+                            <span class="text-xs text-slate-500 font-mono tracking-widest z-10 uppercase flex items-center space-x-1.5">
+                                <span class="w-2 h-2 bg-brandCyan rounded-full animate-ping"></span>
+                                <span>EMBEDDED LOGIC CONTROL SYSTEM ACTIVE</span>
+                            </span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-xs bg-white/5 text-slate-400">Embedded Systems</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs bg-white/5 text-slate-400">Hardware Interface</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs bg-white/5 text-slate-400">Logic Synthesis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6 md:px-12 bg-zinc-950 relative overflow-hidden border-t border-white/5 reveal">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brandOrange/5 via-transparent to-transparent pointer-events-none transition-all duration-1000" id="contactBackgroundGlow"></div>
+        
+        <div class="max-w-5xl mx-auto relative z-10 text-center space-y-12">
+            <div class="space-y-4">
+                <span class="text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors" id="ctaSectionBadge">STEP 04. CALL TO ACTION</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white">함께 몰입하고 지치지 않을<br>동료를 찾으시나요?</h2>
+                <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+                    학회 스터디, 새로운 엔지니어링 프로젝트, 든든한 학과 연구 메이트 등 가치 있는 제안은 언제나 환영입니다. 확실하게 약속합니다. 지치지 않는 기민하고 분석력 있는 파트너가 되어 드립니다!
+                </p>
+            </div>
+
+            <!-- Instant Contact Tools Dashboard -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                
+                <!-- Email Interactive Copy Tool -->
+                <button onclick="copyEmailToClipboard()" class="flex items-center space-x-4 bg-deepCharcoal/40 hover:bg-deepCharcoal/80 border border-white/10 rounded-2xl p-6 text-left transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group">
+                    <div class="w-12 h-12 rounded-xl bg-brandOrange/10 group-hover:bg-brandOrange/20 flex items-center justify-center text-brandOrange text-2xl theme-transition" id="contactIconEmail">
+                        <i class="ph-bold ph-envelope"></i>
+                    </div>
+                    <div class="flex-1">
+                        <span class="text-xs text-slate-500 uppercase tracking-widest font-semibold block">SEND AN EMAIL</span>
+                        <span class="text-sm md:text-base font-bold text-white break-all">thsgmltkd20@gmail.com</span>
+                    </div>
+                    <span id="copyFeedback" class="text-xs font-bold text-brandOrange bg-brandOrange/10 px-2 py-1.5 rounded transition-all">복사하기</span>
+                </button>
+
+                <!-- GitHub Direct Link Card -->
+                <a href="https://github.com" target="_blank" class="flex items-center space-x-4 bg-deepCharcoal/40 hover:bg-deepCharcoal/80 border border-white/10 rounded-2xl p-6 text-left transition-all duration-300 transform hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-brandCyan/10 group-hover:bg-brandCyan/20 flex items-center justify-center text-brandCyan text-2xl theme-transition" id="contactIconGit">
+                        <i class="ph-bold ph-github-logo"></i>
+                    </div>
+                    <div class="flex-1">
+                        <span class="text-xs text-slate-500 uppercase tracking-widest font-semibold block">GITHUB PROFILE</span>
+                        <span class="text-sm md:text-base font-bold text-white">github.com/shg-dev</span>
+                    </div>
+                    <i class="ph-bold ph-arrow-up-right text-slate-400 group-hover:text-brandCyan text-xl transition-colors"></i>
+                </a>
+
+            </div>
+
+            <!-- Toast Alert Popup Box (Embedded - Prevents native Alerts) -->
+            <div id="toastNotification" class="fixed bottom-8 right-8 z-[100] px-6 py-4 rounded-xl bg-slate-900 border border-brandOrange/30 shadow-2xl flex items-center space-x-3 transform translate-y-24 opacity-0 transition-all duration-500 pointer-events-none">
+                <i class="ph-bold ph-check-circle text-brandOrange text-2xl" id="toastIcon"></i>
+                <div class="text-left">
+                    <span class="text-sm font-bold text-white block">이메일 주소 복사 완료!</span>
+                    <span class="text-xs text-slate-400">클립보드에 저장되었습니다. 연락을 기다릴게요!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Sleek Page Footer -->
+    <footer class="py-12 border-t border-white/5 bg-cyberDark text-center text-xs text-slate-500 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 space-y-4">
+            <div class="flex justify-center space-x-6">
+                <a href="#hero" class="hover:text-white transition-colors">TOP</a>
+                <a href="#about" class="hover:text-white transition-colors">ABOUT</a>
+                <a href="#strengths" class="hover:text-white transition-colors">STRENGTHS</a>
+                <a href="#study-fields" class="hover:text-white transition-colors">FIELDS</a>
+            </div>
+            <p>© 2026 손희상 (Sohn Hee-sang). All Rights Reserved.</p>
+            <p class="text-[10px] text-slate-600">이 웹사이트는 최적의 반응형 사용자 경험과 몰입형 인터랙션 디자인 토큰으로 맞춤 설계되었습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Store current theme state globally: 'ON' (Orange, High Energy) or 'OFF' (Cyan, Calm Recovery)
+        let currentSystemMode = 'ON';
+
+        // Set the state dynamically with custom layout changes
+        function setSystemState(targetState) {
+            currentSystemMode = targetState;
+
+            // DOM Elements targeting with safe fallback checks
+            const headerToggleBtn = document.getElementById('headerThemeToggle');
+            const toggleKnob = document.getElementById('toggleKnob');
+            const toggleKnobIcon = document.getElementById('toggleKnobIcon');
+            const headerModeLabel = document.getElementById('headerModeLabel');
+            
+            const statusPulseDot = document.getElementById('statusPulseDot');
+            const statusText = document.getElementById('statusText');
+            
+            const glowTextFocus = document.getElementById('glowTextFocus');
+            const glowTextRecovery = document.getElementById('glowTextRecovery');
+            
+            const heroPrimaryBtn = document.getElementById('heroPrimaryBtn');
+            const scrollIndicatorDot = document.getElementById('scrollIndicatorDot');
+
+            // Sections & Badges
+            const aboutSectionBadge = document.getElementById('aboutSectionBadge');
+            const strengthSectionBadge = document.getElementById('strengthSectionBadge');
+            const projectSectionBadge = document.getElementById('projectSectionBadge');
+            const ctaSectionBadge = document.getElementById('ctaSectionBadge');
+
+            // Interactive simulation SVG Graphics
+            const svgOn = document.getElementById('svgGraphicOn');
+            const svgOff = document.getElementById('svgGraphicOff');
+            const graphicLabel = document.getElementById('graphicLabel');
+            const graphicBgGlow = document.getElementById('graphicBgGlow');
+
+            // Interactive Gauges
+            const sliderGauge = document.getElementById('sliderGauge');
+            const gaugeLeftLabel = document.getElementById('gaugeLeftLabel');
+            const gaugeRightLabel = document.getElementById('gaugeRightLabel');
+            const gaugeOnPercent = document.getElementById('gaugeOnPercent');
+            const gaugeOffPercent = document.getElementById('gaugeOffPercent');
+            
+            const simBtnOn = document.getElementById('simBtnOn');
+            const simBtnOff = document.getElementById('simBtnOff');
+            
+            const lifestyleContentOn = document.getElementById('lifestyleContentOn');
+            const lifestyleContentOff = document.getElementById('lifestyleContentOff');
+
+            const contactBgGlow = document.getElementById('contactBackgroundGlow');
+            const copyFeedback = document.getElementById('copyFeedback');
+            const toastIcon = document.getElementById('toastIcon');
+            const logoTextMain = document.getElementById('logoTextMain');
+
+            // Project cards elements
+            const projCardBadge1 = document.getElementById('projCardBadge1');
+            const projCardBadge2 = document.getElementById('projCardBadge2');
+            const projCardTitle1 = document.getElementById('projCardTitle1');
+            const projCardTitle2 = document.getElementById('projCardTitle2');
+            const projCardIcon1 = document.getElementById('projCardIcon1');
+            const projCardIcon2 = document.getElementById('projCardIcon2');
+
+            // Strength cards elements
+            const sCard1 = document.getElementById('strengthCard1');
+            const sCard2 = document.getElementById('strengthCard2');
+            const sCard3 = document.getElementById('strengthCard3');
+            const sIconBox1 = document.getElementById('strengthIconBox1');
+            const sIconBox2 = document.getElementById('strengthIconBox2');
+            const sIconBox3 = document.getElementById('strengthIconBox3');
+            const sFoot1 = document.getElementById('strengthFoot1');
+            const sFoot2 = document.getElementById('strengthFoot2');
+            const sFoot3 = document.getElementById('strengthFoot3');
+
+            if (currentSystemMode === 'ON') {
+                // Adjust Header & Toggle indicators to ON (Orange Theme)
+                if(headerToggleBtn) headerToggleBtn.className = "relative w-16 h-8 bg-brandOrange/20 rounded-full p-1 border border-brandOrange/40 cursor-pointer transition-all duration-500 overflow-hidden";
+                if(toggleKnob) toggleKnob.className = "absolute top-1 left-1 w-6 h-6 rounded-full bg-brandOrange shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-0";
+                if(toggleKnobIcon) toggleKnobIcon.className = "ph-bold ph-lightning text-[14px]";
+                if(headerModeLabel) {
+                    headerModeLabel.innerText = "FOCUS MODE";
+                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandOrange uppercase transition-all";
+                }
+                if(logoTextMain) logoTextMain.className = "text-brandOrange theme-transition logo-on";
+
+                // Hero & Status Signal updates
+                if(statusPulseDot) statusPulseDot.className = "w-2.5 h-2.5 rounded-full bg-brandOrange animate-pulse";
+                if(statusText) statusText.innerText = "CURRENT STATE: 100% FOCUS";
+                
+                if(glowTextFocus) glowTextFocus.className = "text-brandOrange glow-orange theme-transition";
+                if(glowTextRecovery) glowTextRecovery.className = "text-white/40 theme-transition";
+                if(heroPrimaryBtn) heroPrimaryBtn.className = "w-full sm:w-auto px-8 py-4 bg-brandOrange hover:bg-brandOrange/80 text-white font-bold rounded-xl shadow-lg shadow-brandOrange/20 transition-all transform hover:-translate-y-1 text-center";
+                if(scrollIndicatorDot) scrollIndicatorDot.className = "w-1 h-2 bg-brandOrange rounded-full animate-bounce";
+
+                // Section Badge Colors
+                if(aboutSectionBadge) aboutSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
+                if(strengthSectionBadge) strengthSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
+                if(projectSectionBadge) projectSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
+                if(ctaSectionBadge) ctaSectionBadge.className = "text-xs font-bold tracking-widest text-brandOrange uppercase transition-colors";
+
+                // Graphic Elements Toggling
+                if(svgOn) { svgOn.classList.remove('opacity-0', 'scale-75', 'pointer-events-none'); svgOn.classList.add('opacity-100', 'scale-100'); }
+                if(svgOff) { svgOff.classList.remove('opacity-100', 'scale-100'); svgOff.classList.add('opacity-0', 'scale-75', 'pointer-events-none'); }
+                if(graphicLabel) graphicLabel.innerText = "FOCUSING ACTIVE";
+                if(graphicBgGlow) graphicBgGlow.className = "absolute inset-0 bg-brandOrange/5 rounded-full transition-all duration-700";
+
+                // Gauge Updates
+                if(sliderGauge) sliderGauge.style.width = "100%";
+                if(gaugeLeftLabel) gaugeLeftLabel.className = "font-medium text-brandOrange flex items-center space-x-1 transition-colors";
+                if(gaugeRightLabel) gaugeRightLabel.className = "font-medium text-slate-500 flex items-center space-x-1 transition-colors";
+                if(gaugeOnPercent) gaugeOnPercent.className = "text-brandOrange font-bold transition-colors";
+                if(gaugeOffPercent) gaugeOffPercent.className = "text-slate-500 transition-colors";
+
+                // Buttons Toggling
+                if(simBtnOn) simBtnOn.className = "flex-1 py-3 px-4 rounded-lg bg-brandOrange text-white font-bold text-sm transition-all flex items-center justify-center space-x-2";
+                if(simBtnOff) simBtnOff.className = "flex-1 py-3 px-4 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 font-bold text-sm transition-all flex items-center justify-center space-x-2";
+
+                // Content Panel Sliding
+                if(lifestyleContentOn) lifestyleContentOn.className = "space-y-4 transition-all duration-500 opacity-100 transform translate-x-0";
+                if(lifestyleContentOff) lifestyleContentOff.className = "space-y-4 transition-all duration-500 opacity-0 transform translate-x-12 absolute inset-0 p-8 flex flex-col justify-center hidden";
+
+                // Contact Glow & Button Feedbacks
+                if(contactBgGlow) contactBgGlow.className = "absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brandOrange/5 via-transparent to-transparent pointer-events-none transition-all duration-1000";
+                if(copyFeedback) copyFeedback.className = "text-xs font-bold text-brandOrange bg-brandOrange/10 px-2 py-1.5 rounded transition-colors";
+                if(toastIcon) toastIcon.className = "ph-bold ph-check-circle text-brandOrange text-2xl";
+
+                // Update Project Cards to reflect Orange
+                if(projCardBadge1) projCardBadge1.className = "px-3 py-1 rounded-full text-xs font-semibold bg-brandOrange/10 text-brandOrange border border-brandOrange/20 transition-all";
+                if(projCardBadge2) projCardBadge2.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-slate-400 border border-white/5 transition-all";
+                if(projCardTitle1) projCardTitle1.className = "text-2xl font-bold mb-3 text-white group-hover:text-brandOrange transition-colors";
+                if(projCardTitle2) projCardTitle2.className = "text-2xl font-bold mb-3 text-white group-hover:text-white transition-colors";
+                if(projCardIcon1) projCardIcon1.className = "flex space-x-2 text-slate-500 group-hover:text-brandOrange transition-colors";
+                if(projCardIcon2) projCardIcon2.className = "flex space-x-2 text-slate-500 group-hover:text-white transition-colors";
+
+                // Update Strength Cards
+                if(sCard1) sCard1.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
+                if(sCard2) sCard2.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-white/10 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
+                if(sCard3) sCard3.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandOrange/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
+                if(sIconBox1) sIconBox1.className = "w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors";
+                if(sIconBox2) sIconBox2.className = "w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 mb-6 transition-colors";
+                if(sIconBox3) sIconBox3.className = "w-12 h-12 rounded-2xl bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-6 transition-colors";
+                if(sFoot1) sFoot1.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors";
+                if(sFoot2) sFoot2.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors";
+                if(sFoot3) sFoot3.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandOrange font-semibold uppercase tracking-widest transition-colors";
+
+            } else {
+                // Adjust Header & Toggle indicators to OFF (Cyan Theme)
+                if(headerToggleBtn) headerToggleBtn.className = "relative w-16 h-8 bg-brandCyan/20 rounded-full p-1 border border-brandCyan/40 cursor-pointer transition-all duration-500 overflow-hidden";
+                if(toggleKnob) toggleKnob.className = "absolute top-1 left-1 w-6 h-6 rounded-full bg-brandCyan shadow-lg flex items-center justify-center text-white text-xs font-black transition-all duration-500 transform translate-x-8";
+                if(toggleKnobIcon) toggleKnobIcon.className = "ph-bold ph-moon text-[14px]";
+                if(headerModeLabel) {
+                    headerModeLabel.innerText = "OFF ROUTINE";
+                    headerModeLabel.className = "text-[10px] tracking-widest font-semibold hidden sm:inline text-brandCyan uppercase transition-all";
+                }
+                if(logoTextMain) logoTextMain.className = "text-brandCyan theme-transition logo-on";
+
+                // Hero & Status Signal updates
+                if(statusPulseDot) statusPulseDot.className = "w-2.5 h-2.5 rounded-full bg-brandCyan animate-pulse";
+                if(statusText) statusText.innerText = "CURRENT STATE: ACTIVE RECOVERY";
+
+                if(glowTextFocus) glowTextFocus.className = "text-white/40 theme-transition";
+                if(glowTextRecovery) glowTextRecovery.className = "text-brandCyan glow-cyan theme-transition";
+                if(heroPrimaryBtn) heroPrimaryBtn.className = "w-full sm:w-auto px-8 py-4 bg-brandCyan hover:bg-brandCyan/80 text-white font-bold rounded-xl shadow-lg shadow-brandCyan/20 transition-all transform hover:-translate-y-1 text-center";
+                if(scrollIndicatorDot) scrollIndicatorDot.className = "w-1 h-2 bg-brandCyan rounded-full animate-bounce";
+
+                // Section Badge Colors
+                if(aboutSectionBadge) aboutSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
+                if(strengthSectionBadge) strengthSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
+                if(projectSectionBadge) projectSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
+                if(ctaSectionBadge) ctaSectionBadge.className = "text-xs font-bold tracking-widest text-brandCyan uppercase transition-colors";
+
+                // Graphic Elements Toggling
+                if(svgOn) { svgOn.classList.add('opacity-0', 'scale-75', 'pointer-events-none'); svgOn.classList.remove('opacity-100', 'scale-100'); }
+                if(svgOff) { svgOff.classList.add('opacity-100', 'scale-100'); svgOff.classList.remove('opacity-0', 'scale-75', 'pointer-events-none'); }
+                if(graphicLabel) graphicLabel.innerText = "RECOVERY ACTIVE";
+                if(graphicBgGlow) graphicBgGlow.className = "absolute inset-0 bg-brandCyan/5 rounded-full transition-all duration-700";
+
+                // Gauge Updates
+                if(sliderGauge) sliderGauge.style.width = "0%";
+                if(gaugeLeftLabel) gaugeLeftLabel.className = "font-medium text-slate-500 flex items-center space-x-1 transition-colors";
+                if(gaugeRightLabel) gaugeRightLabel.className = "font-medium text-brandCyan flex items-center space-x-1 transition-colors";
+                if(gaugeOnPercent) gaugeOnPercent.className = "text-slate-500 transition-colors";
+                if(gaugeOffPercent) gaugeOffPercent.className = "text-brandCyan font-bold transition-colors";
+
+                // Buttons Toggling
+                if(simBtnOn) simBtnOn.className = "flex-1 py-3 px-4 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 font-bold text-sm transition-all flex items-center justify-center space-x-2";
+                if(simBtnOff) simBtnOff.className = "flex-1 py-3 px-4 rounded-lg bg-brandCyan text-white font-bold text-sm transition-all flex items-center justify-center space-x-2";
+
+                // Content Panel Sliding
+                if(lifestyleContentOn) lifestyleContentOn.className = "space-y-4 transition-all duration-500 opacity-0 transform -translate-x-12 absolute inset-0 p-8 flex flex-col justify-center hidden";
+                if(lifestyleContentOff) {
+                    lifestyleContentOff.className = "space-y-4 transition-all duration-500 opacity-100 transform translate-x-0";
+                    lifestyleContentOff.classList.remove('hidden');
+                }
+
+                // Contact Glow & Button Feedbacks
+                if(contactBgGlow) contactBgGlow.className = "absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brandCyan/5 via-transparent to-transparent pointer-events-none transition-all duration-1000";
+                if(copyFeedback) copyFeedback.className = "text-xs font-bold text-brandCyan bg-brandCyan/10 px-2 py-1 rounded transition-colors";
+                if(toastIcon) toastIcon.className = "ph-bold ph-check-circle text-brandCyan text-2xl";
+
+                // Update Project Cards to reflect Cyan
+                if(projCardBadge1) projCardBadge1.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-slate-400 border border-white/5 transition-all";
+                if(projCardBadge2) projCardBadge2.className = "px-3 py-1 rounded-full text-xs font-semibold bg-brandCyan/10 text-brandCyan border border-brandCyan/20 transition-all";
+                if(projCardTitle1) projCardTitle1.className = "text-2xl font-bold mb-3 text-white group-hover:text-white transition-colors";
+                if(projCardTitle2) projCardTitle2.className = "text-2xl font-bold mb-3 text-white group-hover:text-brandCyan transition-colors";
+                if(projCardIcon1) projCardIcon1.className = "flex space-x-2 text-slate-500 group-hover:text-white transition-colors";
+                if(projCardIcon2) projCardIcon2.className = "flex space-x-2 text-slate-500 group-hover:text-brandCyan transition-colors";
+
+                // Update Strength Cards
+                if(sCard1) sCard1.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-white/10 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
+                if(sCard2) sCard2.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-brandCyan/30 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
+                if(sCard3) sCard3.className = "bg-deepCharcoal/30 border border-white/5 rounded-3xl p-8 hover:border-white/10 hover:bg-deepCharcoal/50 transition-all duration-300 relative group flex flex-col justify-between";
+                if(sIconBox1) sIconBox1.className = "w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 mb-6 transition-colors";
+                if(sIconBox2) sIconBox2.className = "w-12 h-12 rounded-2xl bg-brandCyan/10 flex items-center justify-center text-brandCyan mb-6 transition-colors";
+                if(sIconBox3) sIconBox3.className = "w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 mb-6 transition-colors";
+                if(sFoot1) sFoot1.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors";
+                if(sFoot2) sFoot2.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-brandCyan font-semibold uppercase tracking-widest transition-colors";
+                if(sFoot3) sFoot3.className = "mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-500 font-semibold uppercase tracking-widest transition-colors";
+            }
+        }
+
+        // Global Mode toggle function triggered from multiple switchers
+        function toggleGlobalMode() {
+            if (currentSystemMode === 'ON') {
+                setSystemState('OFF');
+            } else {
+                setSystemState('ON');
+            }
+        }
+
+        // Copy to clipboard functional mechanics with Toast Notification (No default Alert)
+        function copyEmailToClipboard() {
+            const emailText = "thsgmltkd20@gmail.com";
+            
+            // Create a temporary text element to execute copy safely in iframe
+            const tempInput = document.createElement("input");
+            tempInput.value = emailText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Activate Custom Toast Window
+            const toast = document.getElementById('toastNotification');
+            if(toast) {
+                toast.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
+                toast.classList.add('opacity-100', 'translate-y-0');
+
+                // Autohide after 3.5 seconds
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                }, 3500);
+            }
+        }
+
+        // Initialization Logic with Scroll Reveal Observer
+        window.onload = function() {
+            // Setup default interactive state (ON Focus mode)
+            setSystemState('ON');
+
+            // Intersection Observer to smoothly trigger section fade-ins on scroll
+            const reveals = document.querySelectorAll('.reveal');
+            const observerOptions = {
+                root: null,
+                threshold: 0.15, // Trigger when 15% of the element is visible
+                rootMargin: "0px"
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Trigger only once
+                    }
+                });
+            }, observerOptions);
+
+            reveals.forEach(reveal => {
+                revealObserver.observe(reveal);
+            });
+        }
+    </script>
+</body>
+</html>
